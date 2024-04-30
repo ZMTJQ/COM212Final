@@ -31,6 +31,9 @@ public class MovieNode {
 	public int RottenTomatoes() {
 		return RottenTomatoes;
 	}
+	public void setName(String name){
+		this.name=name;
+	}
 	public void setLeft(MovieNode left){
 		this.left = left;
 	}
