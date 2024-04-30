@@ -57,8 +57,8 @@ public class CustomerNode{
 		}
 	}
 	
-	public void searchHaveWatchedList(int ID){
-		haveWatchedList.searchReturn(ID);
+	public MovieNode searchHaveWatchedList(int ID){
+		return haveWatchedList.searchReturn(ID);
 	}
 	
 	public void addToWishList(MovieNode movie){
