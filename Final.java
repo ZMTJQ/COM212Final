@@ -214,5 +214,6 @@ public class Final{
 		System.out.println("Enter movie ID: ");
 		int movieID = in.nextInt();
 		System.out.println(movieIDDirectory.lookUp(movieID).getName());
+		welcomeScreen();
 	}
 }
