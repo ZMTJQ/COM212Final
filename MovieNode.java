@@ -28,11 +28,20 @@ public class MovieNode {
 		return UniqueIdCode;
 	}
 
-	public int RottenTomatoes() {
+	public int getRottenTomatoes() {
 		return RottenTomatoes;
 	}
 	public void setName(String name){
 		this.name=name;
+	}
+	public void setReleaseDate(int date){
+		ReleaseDate=date;
+	}
+	public void setID(int id){
+		UniqueIdCode=id;
+	}
+	public void setRottenTomatoes(rt){
+		RottenTomatoes=rt;
 	}
 	public void setLeft(MovieNode left){
 		this.left = left;
