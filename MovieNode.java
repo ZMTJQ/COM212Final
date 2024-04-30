@@ -2,7 +2,7 @@
 
 public class MovieNode {
 
-	
+	private boolean available;
 	private String name;
 	private int ReleaseDate;
 	private int UniqueIdCode;
@@ -11,11 +11,20 @@ public class MovieNode {
 	private MovieNode right;
 
 	public MovieNode(String name0,int releasedate0, int uniqueidcode0, int rottenTomatoes0) {
+		available = true;
 		name = name0;
-		ReleaseDate= releasedate0%100000000;
-		UniqueIdCode=uniqueidcode0%100000;
+		ReleaseDate = releasedate0%100000000;
+		UniqueIdCode = uniqueidcode0%100000;
+		RottenTomatoes = rottenTomatoes0;
+		left = null;
+		right = null;
 	}
-
+	public boolean isAvailable(){
+		return available;
+	}
+	public void setUavailable(){
+		available = false;
+	}
 	public String getName() {
 		return name;
 	}
