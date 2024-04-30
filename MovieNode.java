@@ -40,7 +40,7 @@ public class MovieNode {
 	public void setID(int id){
 		UniqueIdCode=id;
 	}
-	public void setRottenTomatoes(rt){
+	public void setRottenTomatoes(int rt){
 		RottenTomatoes=rt;
 	}
 	public void setLeft(MovieNode left){
