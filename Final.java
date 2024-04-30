@@ -210,6 +210,9 @@ public class Final{
 	}
 	
 	public static void run4(){
-		
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter movie ID: ");
+		int movieID = in.nextInt();
+		System.out.println(movieIDDirectory.lookUp(movieID).getName());
 	}
 }
