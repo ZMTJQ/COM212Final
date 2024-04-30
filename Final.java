@@ -57,7 +57,6 @@ public class Final{
 	static MovieHeap movieRTDirectory = new  MovieHeap();
 	
 	public static void run1(){
-		int i = 0;
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter: ");
 		System.out.println("'1' to add a new customer");
@@ -202,11 +201,69 @@ public class Final{
 	}
 	
 	public static void run2(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter: ");
+		System.out.println("'1' view lowest rated movie");
+		System.out.println("'2' delete lowest rated movie");
+		System.out.println("'3' add a new movie");
+		System.out.println("'4' to return to the welcome screen");
+		int inputNum = in.nextInt();
 		
+		if(inputNum==1){
+			System.out.println(movieRTDirectory.findMin().getName());
+			run2();
+		}
+		else if(inputNum==2){
+			movieRTDirectory.deleteMin();
+			run2();
+		}
+		else if(inputNum==3){
+			System.out.println("Enter name: ");	
+			String inputName = in.next();
+			System.out.println("Enter release date ");
+			int inputRD= in.nextInt();
+			System.out.println("Enter 5 digit id code ");	
+			int inputID = in.nextInt();
+			System.out.println("Enter rotten tomato score");
+			int inputRT= in.nextInt();
+			MovieNode movie = new MovieNode(inputName, inputRD, inputID, inputRT);
+			movieRTDirectory.insert(movie);
+			run2();
+		}
+		else if(inputNum==4){
+			welcomeScreen();
+		}
+		
+		else{
+			System.out.println("Not an avaliable option. Try again: ");
+		}
 	}
 	
 	public static void run3(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter: ");
+		System.out.println("'1' print all movies in order of release date");
+		System.out.println("'2' delete a movie");
+		System.out.println("'3' to return to the welcome screen");
+		int inputNum = in.nextInt();
 		
+		if(inputNum==1){
+			movieDateDirectory.traverse();
+			run3();
+		}
+		else if(inputNum==2){
+			System.out.println("Enter release date: ");
+			int RD= in.nextInt();	
+			movieDateDirectory.delete(movieDateDirectory.search(RD));
+			run3();
+		}
+		else if(inputNum==3){
+			welcomeScreen();
+		}
+		
+		else{
+			System.out.println("Not an avaliable option. Try again: ");
+		}
 	}
 	
 	public static void run4(){
