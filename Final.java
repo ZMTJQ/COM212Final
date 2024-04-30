@@ -214,7 +214,9 @@ public class Final{
 			run2();
 		}
 		else if(inputNum==2){
+			MovieNode temp = movieRTDirectory.findMin();
 			movieRTDirectory.deleteMin();
+			temp.setUavailable();
 			run2();
 		}
 		else if(inputNum==3){
@@ -228,6 +230,8 @@ public class Final{
 			int inputRT= in.nextInt();
 			MovieNode movie = new MovieNode(inputName, inputRD, inputID, inputRT);
 			movieRTDirectory.insert(movie);
+			movieIDDirectory.insert(movie);
+			movieDateDirectory.insert(movie);
 			run2();
 		}
 		else if(inputNum==4){
@@ -255,6 +259,7 @@ public class Final{
 			System.out.println("Enter release date: ");
 			int RD= in.nextInt();	
 			movieDateDirectory.delete(movieDateDirectory.search(RD));
+			movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
 			run3();
 		}
 		else if(inputNum==3){
