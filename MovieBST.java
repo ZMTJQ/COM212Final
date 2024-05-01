@@ -102,7 +102,7 @@ public class MovieBST implements java.io.Serializable{
     private void traverse2(MovieNode node) { //traverse with private recursion
         if (node != null) {		//loops until its null
             traverse2(node.getLeft());  //calls with left child node
-            System.out.print(node.getReleaseDate() + " ");
+            System.out.print(node.getName() + ": " + node.getReleaseDate() + ", ");
             traverse2(node.getRight()); //calls with right child node
         }
     }

@@ -111,8 +111,14 @@ public class Final implements java.io.Serializable{
 				}
 				else if(inputNum2==2){
 					System.out.println("Enter 5 digit movie ID: ");
-					int inputID= in.nextInt();	
-					c.addToWishList(movieIDDirectory.lookUp(inputID));
+					int inputID= in.nextInt();
+					MovieNode node = movieIDDirectory.lookUp(inputID);
+					if(node!=null){ 	
+						c.addToWishList(movieIDDirectory.lookUp(inputID));
+					}
+					else{
+						System.out.println("Movie doesn't exist");
+					}
 					saveCustomerBST(customerDirectory);
 					run1();
 				}

@@ -62,7 +62,12 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public void addToWishList(MovieNode movie){
-		wishList.enqueue(movie);
+		if(movie!=null){
+			wishList.enqueue(movie);
+		}
+		else{
+			System.out.println("Can't add movie");
+		}
 	}
 	
 	public void addToHaveWatchedList(MovieNode movie){
