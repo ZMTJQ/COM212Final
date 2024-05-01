@@ -1,4 +1,5 @@
-public class MovieBST {
+import java.io.*;
+public class MovieBST implements java.io.Serializable{
 	
     private MovieNode root;
 	

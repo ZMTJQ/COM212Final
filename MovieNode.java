@@ -1,6 +1,5 @@
-
-
-public class MovieNode {
+import java.io.*;
+public class MovieNode implements java.io.Serializable{
 
 	private boolean available;
 	private String name;

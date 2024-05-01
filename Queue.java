@@ -4,8 +4,8 @@
 //It has an array of length 100, int front, and int n (counter) as instance variables
 //A user can perform the following methods on a queue
 //front, dequeue, enqueue, isEmpty
-
-public class Queue {
+import java.io.*;
+public class Queue implements java.io.Serializable{
 	
 	private MovieNode[] q= new MovieNode[20];
 	private int front = 0;

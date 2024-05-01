@@ -2,8 +2,8 @@
 //Program/class Node
 //This class defines a node object discussed in class. 
 //It has a name, SSN, and next pointer as instance variables
-
-public class CustomerNode{
+import java.io.*;
+public class CustomerNode implements java.io.Serializable{
 	
 	private String name;
 	private int creditCard;

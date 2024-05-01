@@ -1,4 +1,5 @@
-public class CustomerBST {
+import java.io.*;
+public class CustomerBST implements java.io.Serializable{
 	
 	private CustomerNode root = null;
 	

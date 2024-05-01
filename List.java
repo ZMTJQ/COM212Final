@@ -5,8 +5,8 @@
 //A user can perform the following methods on a linked list:
 //length, isEmptyList, searchReturn, searchRemove, insert and printList
 
-
-public class List {
+import java.io.*;
+public class List implements java.io.Serializable{
 	
 	private MovieNode head = null;
 	private int n = 0;

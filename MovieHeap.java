@@ -1,4 +1,5 @@
-public class MovieHeap{
+import java.io.*;
+public class MovieHeap implements java.io.Serializable{
 	
 	private MovieNode[] h= new MovieNode[255];
 	private int n = 0;

@@ -1,6 +1,13 @@
 import java.util.Scanner;
+import java.io.*;
 
-public class Final{
+public class Final implements java.io.Serializable{
+
+	static CustomerBST customerDirectory = loadCustomerBST();
+	static MovieBST movieDateDirectory = loadMovieBST();
+	static MovieHash movieIDDirectory = loadMovieHash();
+	static MovieHeap movieRTDirectory = loadMovieHeap();
+	
 	public static void main(String[] args){
 		boolean correctID = false;
 		Scanner in = new Scanner(System.in);
@@ -51,11 +58,6 @@ public class Final{
 		
 	}
 	
-	static CustomerBST customerDirectory = new  CustomerBST();
-	static MovieBST movieDateDirectory = new  MovieBST();
-	static MovieHash movieIDDirectory = new  MovieHash();
-	static MovieHeap movieRTDirectory = new  MovieHeap();
-	
 	public static void run1(){
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter: ");
@@ -75,12 +77,14 @@ public class Final{
 			String inputEmail = in.next();
 			CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
 			customerDirectory.insert(customer);
+			saveCustomerBST(customerDirectory);
 			run1();
 		}
 		else if(inputNum==2){
 			System.out.println("Enter 4 digit credit card number: ");
 			int inputCC= in.nextInt();		
 			customerDirectory.delete(customerDirectory.search(inputCC));
+			saveCustomerBST(customerDirectory);
 			run1();
 		}
 		else if(inputNum==3){
@@ -109,10 +113,12 @@ public class Final{
 					System.out.println("Enter 5 digit movie ID: ");
 					int inputID= in.nextInt();	
 					c.addToWishList(movieIDDirectory.lookUp(inputID));
+					saveCustomerBST(customerDirectory);
 					run1();
 				}
 				else if(inputNum2==3){
 					c.deleteWishList();
+					saveCustomerBST(customerDirectory);
 					run1();
 				}
 				
@@ -145,6 +151,7 @@ public class Final{
 					System.out.println("Enter 5 digit movie ID: ");
 					int ID2= in.nextInt();	
 					c.deleteHaveWatchedList(c.searchHaveWatchedList(ID2));
+					saveCustomerBST(customerDirectory);
 					run1();
 				}
 				
@@ -162,18 +169,21 @@ public class Final{
 					System.out.println("Enter name: ");	
 					String inputName1 = in.next();
 					c.setName(inputName1);
+					saveCustomerBST(customerDirectory);
 					run1();
 				}
 				else if(inputNum4==2){
 					System.out.println("Enter credit card: ");	
 					int inputCC1 = in.nextInt();
 					c.setCreditCard(inputCC1);
+					saveCustomerBST(customerDirectory);
 					run1();
 				}
 				else if(inputNum4==3){
 					System.out.println("Enter email address: ");	
 					String inputEmail1 = in.next();
 					c.setEmail(inputEmail1);
+					saveCustomerBST(customerDirectory);
 					run1();
 				}
 				
@@ -217,6 +227,9 @@ public class Final{
 			MovieNode temp = movieRTDirectory.findMin();
 			movieRTDirectory.deleteMin();
 			temp.setUavailable();
+			saveMovieHeap(movieRTDirectory);
+			saveMovieBST(movieDateDirectory);
+			saveMovieHash(movieIDDirectory);
 			run2();
 		}
 		else if(inputNum==3){
@@ -232,6 +245,9 @@ public class Final{
 			movieRTDirectory.insert(movie);
 			movieIDDirectory.insert(movie);
 			movieDateDirectory.insert(movie);
+			saveMovieHeap(movieRTDirectory);
+			saveMovieBST(movieDateDirectory);
+			saveMovieHash(movieIDDirectory);
 			run2();
 		}
 		else if(inputNum==4){
@@ -260,6 +276,8 @@ public class Final{
 			int RD= in.nextInt();	
 			movieDateDirectory.delete(movieDateDirectory.search(RD));
 			movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
+			saveMovieBST(movieDateDirectory);
+			saveMovieHash(movieIDDirectory);
 			run3();
 		}
 		else if(inputNum==3){
@@ -278,4 +296,118 @@ public class Final{
 		System.out.println(movieIDDirectory.lookUp(movieID).getName());
 		welcomeScreen();
 	}
+	
+	public static void saveMovieBST(MovieBST movie){
+		try {
+			FileOutputStream file = new FileOutputStream("movieBST.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeObject(movie);
+			out.close();
+			file.close();
+        	} 
+        	catch (IOException e) {
+			e.printStackTrace();
+        	}
+   	}
+
+	public static MovieBST loadMovieBST(){
+		MovieBST movie;
+        	try {
+			FileInputStream file = new FileInputStream("movieBST.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+            		movie = (MovieBST) in.readObject();
+           		in.close();
+            		file.close();
+        	} 
+        	catch (Exception e) {
+            	movie = new MovieBST();
+        	}
+        return movie;
+    	}
+    	
+    	public static void saveMovieHeap (MovieHeap movie){
+		try {
+			FileOutputStream file = new FileOutputStream("movieHeap.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeObject(movie);
+			out.close();
+			file.close();
+        	} 
+        	catch (IOException e) {
+			e.printStackTrace();
+        	}
+   	}
+
+	public static MovieHeap loadMovieHeap(){
+		MovieHeap movie;
+        	try {
+			FileInputStream file = new FileInputStream("movieHeap.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+            		movie = (MovieHeap) in.readObject();
+           		in.close();
+            		file.close();
+        	} 
+        	catch (Exception e) {
+            	movie = new MovieHeap();
+        	}
+        return movie;
+    	}
+    	
+    	public static void saveMovieHash (MovieHash movie){
+		try {
+			FileOutputStream file = new FileOutputStream("movieHash.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeObject(movie);
+			out.close();
+			file.close();
+        	} 
+        	catch (IOException e) {
+			e.printStackTrace();
+        	}
+   	}
+
+	public static MovieHash loadMovieHash(){
+		MovieHash movie;
+        	try {
+			FileInputStream file = new FileInputStream("movieHash.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+            		movie = (MovieHash) in.readObject();
+           		in.close();
+            		file.close();
+        	} 
+        	catch (Exception e) {
+            	movie = new MovieHash();
+        	}
+        return movie;
+    	}
+    	
+    	public static void saveCustomerBST (CustomerBST movie){
+		try {
+			FileOutputStream file = new FileOutputStream("customerBST.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeObject(movie);
+			out.close();
+			file.close();
+        	} 
+        	catch (IOException e) {
+			e.printStackTrace();
+        	}
+   	}
+
+	public static CustomerBST loadCustomerBST(){
+		CustomerBST movie;
+        	try {
+			FileInputStream file = new FileInputStream("customerBST.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+            		movie = (CustomerBST) in.readObject();
+           		in.close();
+            		file.close();
+        	} 
+        	catch (Exception e) {
+            	movie = new CustomerBST();
+        	}
+        return movie;
+    	}
+    	
+    	    	
 }
