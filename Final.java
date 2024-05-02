@@ -411,6 +411,22 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new CustomerBST();
+			CustomerNode customer1 = new CustomerNode( "Zach_Qutikin", 1234, "zq@cc.edu");
+            	CustomerNode customer2 = new CustomerNode( "Evan_Lyons", 2345, "el@cc.edu");
+            	CustomerNode customer3 = new CustomerNode( "Arjun_Premkumar", 3456, "ap@cc.edu");
+            	CustomerNode customer4 = new CustomerNode( "Derin_Gezgin", 4567, "dg@cc.edu");
+            	CustomerNode customer5 = new CustomerNode( "Dimitris_Seremitis", 5678, "ds@cc.edu");
+            	CustomerNode customer6 = new CustomerNode( "Nick_Essery", 6789, "ne@cc.edu");
+            	CustomerNode customer7 = new CustomerNode( "Johnny_Andreasen", 7890, "ja@cc.edu");
+            	movie.insert(customer1);
+            	movie.insert(customer2);
+            	movie.insert(customer3);
+            	movie.insert(customer4);
+            	movie.insert(customer5);
+            	movie.insert(customer6);
+            	movie.insert(customer7);
+            	
+			
         	}
         return movie;
     	}
