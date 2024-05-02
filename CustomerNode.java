@@ -17,8 +17,8 @@ public class CustomerNode implements java.io.Serializable{
 		name = name0;
 		creditCard = creditCard0%10000;
 		email = email0;
-		wishList = null;
-		haveWatchedList = null;
+		Queue wishList = new Queue();
+		haveWatchedList = new List();
 		left = null;
 		right = null;
 	}
@@ -39,7 +39,13 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public void printWishList(){
-		wishList.printQueue();
+		if(wishList.front()==null){
+			wishList = new Queue();
+			System.out.println("No movies in Wish List");
+		}
+		else{
+			wishList.printQueue();
+		}
 	}
 	
 	public void printHaveWatchedList(){
@@ -47,13 +53,19 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public MovieNode accessFrontWishList(){
-		if(wishList.front().isAvailable() == true){
-			return wishList.front();
+		if(wishList.front()==null){
+			wishList = new Queue();
+			return null;
 		}
 		else{
-			System.out.println("Movie is unavailable");
-			wishList.dequeue();
-			return accessFrontWishList();
+			if(wishList.front().isAvailable() == true){
+				return wishList.front();
+			}
+			else{
+				System.out.println("Movie is unavailable");
+				wishList.dequeue();
+				return accessFrontWishList();
+			}
 		}
 	}
 	
@@ -62,11 +74,22 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public void addToWishList(MovieNode movie){
-		if(movie!=null){
-			wishList.enqueue(movie);
+		if(wishList.front()==null){
+			wishList = new Queue();
+			if(movie!=null){
+				wishList.enqueue(movie);
+			}
+			else{
+				System.out.println("Can't add movie");
+			}
 		}
 		else{
-			System.out.println("Can't add movie");
+			if(movie!=null){
+				wishList.enqueue(movie);
+			}
+			else{
+				System.out.println("Can't add movie");
+			}
 		}
 	}
 	
@@ -75,7 +98,13 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public void deleteWishList(){
-		wishList.dequeue();
+		if(wishList==null){
+			wishList = new Queue();
+			System.out.println("Wish List is empty");
+		}
+		else{
+			wishList.dequeue();
+		}
 	}	
 	
 	public void deleteHaveWatchedList(MovieNode movie){
