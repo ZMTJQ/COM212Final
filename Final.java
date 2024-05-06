@@ -40,6 +40,7 @@ public class Final implements java.io.Serializable{
 			System.out.println("'2' for admin control of movies");
 			System.out.println("'3' to view all movies");
 			System.out.println("'4' for customer access");
+			System.out.println("'5' to quit");
 			int inputNum = in.nextInt();
 		
 			if(inputNum==1){
@@ -57,6 +58,10 @@ public class Final implements java.io.Serializable{
 			else if(inputNum==4){
 				run4();
 				correctNum=true;
+			}
+			else if(inputNum==5){
+				System.out.println("Closing program...");
+				break;
 			}
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
