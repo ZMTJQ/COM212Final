@@ -84,281 +84,304 @@ public class Final implements java.io.Serializable{
 	
 	public static void run1(){
 		Scanner in = new Scanner(System.in);
-		System.out.println("Enter: ");
-		System.out.println("'1' to add a new customer");
-		System.out.println("'2' to delete a customer");
-		System.out.println("'3' to access a customer");
-		System.out.println("'4' to see every customer in the directory");
-		System.out.println("'5' to return to the welcome screen");
-		int inputNum = in.nextInt();
-		
-		if(inputNum==1){
-			System.out.println("Enter name: ");	
-			String inputName = in.next();
-			System.out.println("Enter 4 digit credit card number: ");
-			int inputCC= in.nextInt();
-			System.out.println("Enter email address: ");	
-			String inputEmail = in.next();
-			CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
-			customerDirectory.insert(customer);
-			saveCustomerBST(customerDirectory);
-			run1();
-		}
-		else if(inputNum==2){
-			System.out.println("Enter 4 digit credit card number: ");
-			int inputCC= in.nextInt();		
-			customerDirectory.delete(customerDirectory.search(inputCC));
-			saveCustomerBST(customerDirectory);
-			run1();
-		}
-		else if(inputNum==3){
-			System.out.println("Enter 4 digit credit card number: ");
-			int inputCC= in.nextInt();	
-			CustomerNode c = customerDirectory.search(inputCC);
-			System.out.println(c.getName() + c.getCreditCard() + c.getEmail());	
-			System.out.println("What would you like to do? ");	
-			System.out.println("'1' access Wish List");
-			System.out.println("'2' access Have Watched List");
-			System.out.println("'3' change other customer data");
-			System.out.println("'4' return to the previous screen");
-			int inputNum1 = in.nextInt();
-		
-			if(inputNum1==1){
+		try{
+			System.out.println("Enter: ");
+			System.out.println("'1' to add a new customer");
+			System.out.println("'2' to delete a customer");
+			System.out.println("'3' to access a customer");
+			System.out.println("'4' to see every customer in the directory");
+			System.out.println("'5' to return to the welcome screen");
+			int inputNum = in.nextInt();
+			
+			if(inputNum==1){
+				System.out.println("Enter name: ");	
+				String inputName = in.next();
+				System.out.println("Enter 4 digit credit card number: ");
+				int inputCC= in.nextInt();
+				System.out.println("Enter email address: ");	
+				String inputEmail = in.next();
+				CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
+				customerDirectory.insert(customer);
+				saveCustomerBST(customerDirectory);
+				run1();
+			}
+			else if(inputNum==2){
+				System.out.println("Enter 4 digit credit card number: ");
+				int inputCC= in.nextInt();		
+				customerDirectory.delete(customerDirectory.search(inputCC));
+				saveCustomerBST(customerDirectory);
+				run1();
+			}
+			else if(inputNum==3){
+				System.out.println("Enter 4 digit credit card number: ");
+				int inputCC= in.nextInt();	
+				CustomerNode c = customerDirectory.search(inputCC);
+				System.out.println(c.getName() + c.getCreditCard() + c.getEmail());	
 				System.out.println("What would you like to do? ");	
-				System.out.println("'1' access first movie in Wish List");	
-				System.out.println("'2' add to Wish List");
-				System.out.println("'3' delete first movie in Wish List");
-				int inputNum2 = in.nextInt();
-				if(inputNum2==1){
-					if(c.accessFrontWishList()!=null){
-						System.out.println(c.accessFrontWishList().getName());
-						System.out.println("'1' delete first movie in Wish List");
-						System.out.println("'2' return to customer menu");
-						int inputNum12 = in.nextInt();
-						if(inputNum12==1){
-							System.out.println("'1' if movie was watched");
-							System.out.println("'2' if not");
-							int inputNum14 = in.nextInt();
-							if(inputNum14==1){
-								c.addToHaveWatchedList(c.accessFrontWishList());	
+				System.out.println("'1' access Wish List");
+				System.out.println("'2' access Have Watched List");
+				System.out.println("'3' change other customer data");
+				System.out.println("'4' return to the previous screen");
+				int inputNum1 = in.nextInt();
+			
+				if(inputNum1==1){
+					System.out.println("What would you like to do? ");	
+					System.out.println("'1' access first movie in Wish List");	
+					System.out.println("'2' add to Wish List");
+					System.out.println("'3' delete first movie in Wish List");
+					int inputNum2 = in.nextInt();
+					if(inputNum2==1){
+						if(c.accessFrontWishList()!=null){
+							System.out.println(c.accessFrontWishList().getName());
+							System.out.println("'1' delete first movie in Wish List");
+							System.out.println("'2' return to customer menu");
+							int inputNum12 = in.nextInt();
+							if(inputNum12==1){
+								System.out.println("'1' if movie was watched");
+								System.out.println("'2' if not");
+								int inputNum14 = in.nextInt();
+								if(inputNum14==1){
+									c.addToHaveWatchedList(c.accessFrontWishList());	
+								}
+								c.deleteWishList();
+								saveCustomerBST(customerDirectory);
+								System.out.println("deleted.");
+								run1();
 							}
-							c.deleteWishList();
-							saveCustomerBST(customerDirectory);
-							System.out.println("deleted.");
+							else if(inputNum12==2){	
+								run1();
+							}
+						}
+						else{
+							System.out.println("Wish List is Empty");
 							run1();
 						}
-						else if(inputNum12==2){	
-							run1();
+					}	
+					else if(inputNum2==2){
+						System.out.println("Enter 5 digit movie ID: ");
+						int inputID= in.nextInt();
+						MovieNode node = movieIDDirectory.lookUp(inputID);
+						if(node!=null){ 
+							System.out.println(movieIDDirectory.lookUp(inputID).getName());	
+							c.addToWishList(movieIDDirectory.lookUp(inputID));
+							System.out.println("Movie Added");
 						}
-					}
-					else{
-						System.out.println("Wish List is Empty");
+						else{
+							System.out.println("Movie doesn't exist");
+						}
+						saveCustomerBST(customerDirectory);
 						run1();
 					}
-				}	
-				else if(inputNum2==2){
-					System.out.println("Enter 5 digit movie ID: ");
-					int inputID= in.nextInt();
-					MovieNode node = movieIDDirectory.lookUp(inputID);
-					if(node!=null){ 
-						System.out.println(movieIDDirectory.lookUp(inputID).getName());	
-						c.addToWishList(movieIDDirectory.lookUp(inputID));
-						System.out.println("Movie Added");
+					else if(inputNum2==3){
+						c.deleteWishList();
+						saveCustomerBST(customerDirectory);
+						run1();
 					}
+					
 					else{
-						System.out.println("Movie doesn't exist");
+						System.out.println("Not an avaliable option. Try again: ");
 					}
-					saveCustomerBST(customerDirectory);
-					run1();
 				}
-				else if(inputNum2==3){
-					c.deleteWishList();
-					saveCustomerBST(customerDirectory);
-					run1();
-				}
-				
-				else{
-					System.out.println("Not an avaliable option. Try again: ");
-				}
-			}
-			else if(inputNum1==2){
-				System.out.println("What would you like to do? ");	
-				System.out.println("'1' see entire Have Watched List");	
-				System.out.println("'2' search for a movie in Have Watched List");
-				System.out.println("'3' delete a movie in Have Watched List");
-				int inputNum3 = in.nextInt();
-				if(inputNum3==1){
-					c.printHaveWatchedList();
-					run1();
-				}
-				else if(inputNum3==2){
-					System.out.println("Enter 5 digit movie ID: ");
-					int ID1= in.nextInt();	
-					if (c.searchHaveWatchedList(ID1)!=null){
-						System.out.println(c.searchHaveWatchedList(ID1).getName());
+				else if(inputNum1==2){
+					System.out.println("What would you like to do? ");	
+					System.out.println("'1' see entire Have Watched List");	
+					System.out.println("'2' search for a movie in Have Watched List");
+					System.out.println("'3' delete a movie in Have Watched List");
+					int inputNum3 = in.nextInt();
+					if(inputNum3==1){
+						c.printHaveWatchedList();
+						run1();
 					}
+					else if(inputNum3==2){
+						System.out.println("Enter 5 digit movie ID: ");
+						int ID1= in.nextInt();	
+						if (c.searchHaveWatchedList(ID1)!=null){
+							System.out.println(c.searchHaveWatchedList(ID1).getName());
+						}
+						else{
+							System.out.println("Not in list");
+						}
+						run1();
+					}
+					else if(inputNum3==3){
+						System.out.println("Enter 5 digit movie ID: ");
+						int ID2= in.nextInt();	
+						c.deleteHaveWatchedList(c.searchHaveWatchedList(ID2));
+						saveCustomerBST(customerDirectory);
+						run1();
+					}
+					
 					else{
-						System.out.println("Not in list");
+						System.out.println("Not an avaliable option. Try again: ");
 					}
+				}
+				else if(inputNum1==3){
+					System.out.println("What would you like to do? ");	
+					System.out.println("'1' change name");	
+					System.out.println("'2' change credit card");
+					System.out.println("'3' change email");
+					int inputNum4 = in.nextInt();
+					if(inputNum4==1){
+						System.out.println("Enter name: ");	
+						String inputName1 = in.next();
+						c.setName(inputName1);
+						saveCustomerBST(customerDirectory);
+						run1();
+					}
+					else if(inputNum4==2){
+						System.out.println("Enter credit card: ");	
+						int inputCC1 = in.nextInt();
+						c.setCreditCard(inputCC1);
+						saveCustomerBST(customerDirectory);
+						run1();
+					}
+					else if(inputNum4==3){
+						System.out.println("Enter email address: ");	
+						String inputEmail1 = in.next();
+						c.setEmail(inputEmail1);
+						saveCustomerBST(customerDirectory);
+						run1();
+					}
+					
+					else{
+						System.out.println("Not an avaliable option. Try again: ");
+					}
+				}
+				else if(inputNum1==4){
 					run1();
 				}
-				else if(inputNum3==3){
-					System.out.println("Enter 5 digit movie ID: ");
-					int ID2= in.nextInt();	
-					c.deleteHaveWatchedList(c.searchHaveWatchedList(ID2));
-					saveCustomerBST(customerDirectory);
-					run1();
-				}
-				
 				else{
 					System.out.println("Not an avaliable option. Try again: ");
 				}
 			}
-			else if(inputNum1==3){
-				System.out.println("What would you like to do? ");	
-				System.out.println("'1' change name");	
-				System.out.println("'2' change credit card");
-				System.out.println("'3' change email");
-				int inputNum4 = in.nextInt();
-				if(inputNum4==1){
-					System.out.println("Enter name: ");	
-					String inputName1 = in.next();
-					c.setName(inputName1);
-					saveCustomerBST(customerDirectory);
-					run1();
-				}
-				else if(inputNum4==2){
-					System.out.println("Enter credit card: ");	
-					int inputCC1 = in.nextInt();
-					c.setCreditCard(inputCC1);
-					saveCustomerBST(customerDirectory);
-					run1();
-				}
-				else if(inputNum4==3){
-					System.out.println("Enter email address: ");	
-					String inputEmail1 = in.next();
-					c.setEmail(inputEmail1);
-					saveCustomerBST(customerDirectory);
-					run1();
-				}
-				
-				else{
-					System.out.println("Not an avaliable option. Try again: ");
-				}
-			}
-			else if(inputNum1==4){
+			else if(inputNum==4){
+				customerDirectory.traverse();	
 				run1();
+			}
+			else if(inputNum==5){
+				welcomeScreen();
 			}
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
 			}
 		}
-		else if(inputNum==4){
-			customerDirectory.traverse();	
-			run1();
-		}
-		else if(inputNum==5){
-			welcomeScreen();
-		}
-		else{
-			System.out.println("Not an avaliable option. Try again: ");
-		}
-	}
 	
+	catch(InputMismatchException e){
+			System.out.println("Choose one of the options");
+				run1();	
+				}
+		}
 	public static void run2(){
 		Scanner in = new Scanner(System.in);
-		System.out.println("Enter: ");
-		System.out.println("'1' view lowest rated movie");
-		System.out.println("'2' delete lowest rated movie");
-		System.out.println("'3' add a new movie");
-		System.out.println("'4' to return to the welcome screen");
-		int inputNum = in.nextInt();
-		
-		if(inputNum==1){
-			System.out.println(movieRTDirectory.findMin().getName());
-			run2();
-		}
-		else if(inputNum==2){
-			MovieNode temp = movieRTDirectory.findMin();
-			movieRTDirectory.deleteMin();
-			temp.setUavailable();
-			saveMovieHeap(movieRTDirectory);
-			saveMovieBST(movieDateDirectory);
-			saveMovieHash(movieIDDirectory);
-			run2();
-		}
-		else if(inputNum==3){
-			System.out.println("Enter name: ");	
-			String inputName = in.next();
-			System.out.println("Enter release date ");
-			int inputRD= in.nextInt();
-			//System.out.println("Enter 5 digit id code ");	 //use attomatic id code
-			//int inputID = in.nextInt();
-			System.out.println("Enter rotten tomato score");
-			int inputRT= in.nextInt();
+		try{
+			System.out.println("Enter: ");
+			System.out.println("'1' view lowest rated movie");
+			System.out.println("'2' delete lowest rated movie");
+			System.out.println("'3' add a new movie");
+			System.out.println("'4' to return to the welcome screen");
+			int inputNum = in.nextInt();
 			
-			
-			MovieNode movie = new MovieNode(IDCounter, inputName, inputRD, inputRT);
-			createID(movie);
-			movieRTDirectory.insert(movie);
-			movieIDDirectory.insert(movie);
-			movieDateDirectory.insert(movie);
-			saveMovieHeap(movieRTDirectory);
-			saveMovieBST(movieDateDirectory);
-			saveMovieHash(movieIDDirectory);
-			run2();
-		}
-		else if(inputNum==4){
-			welcomeScreen();
-		}
-		
-		else{
-			System.out.println("Not an avaliable option. Try again: ");
-		}
-	}
-	
-	public static void run3(){
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter: ");
-		System.out.println("'1' print all movies in order of release date");
-		System.out.println("'2' delete a movie");
-		System.out.println("'3' to return to the welcome screen");
-		int inputNum = in.nextInt();
-		
-		if(inputNum==1){
-			movieDateDirectory.traverse();
-			run3();
-		}
-		else if(inputNum==2){
-			System.out.println("Enter release date: ");
-			int RD= in.nextInt();
-			if(movieDateDirectory.search(RD).isAvailable() == false){
-				movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
-				movieDateDirectory.delete(movieDateDirectory.search(RD));
+			if(inputNum==1){
+				System.out.println(movieRTDirectory.findMin().getName());
+				run2();
+			}
+			else if(inputNum==2){
+				MovieNode temp = movieRTDirectory.findMin();
+				movieRTDirectory.deleteMin();
+				temp.setUavailable();
+				saveMovieHeap(movieRTDirectory);
 				saveMovieBST(movieDateDirectory);
 				saveMovieHash(movieIDDirectory);
+				run2();
 			}
+			else if(inputNum==3){
+				System.out.println("Enter name: ");	
+				String inputName = in.next();
+				System.out.println("Enter release date ");
+				int inputRD= in.nextInt();
+				//System.out.println("Enter 5 digit id code ");	 //use attomatic id code
+				//int inputID = in.nextInt();
+				System.out.println("Enter rotten tomato score");
+				int inputRT= in.nextInt();
+				
+				
+				MovieNode movie = new MovieNode(IDCounter, inputName, inputRD, inputRT);
+				createID(movie);
+				movieRTDirectory.insert(movie);
+				movieIDDirectory.insert(movie);
+				movieDateDirectory.insert(movie);
+				saveMovieHeap(movieRTDirectory);
+				saveMovieBST(movieDateDirectory);
+				saveMovieHash(movieIDDirectory);
+				run2();
+			}
+			else if(inputNum==4){
+				welcomeScreen();
+			}
+			
 			else{
-				System.out.println("You can't delete an available movie!");
-				}
-			run3();
+				System.out.println("Not an avaliable option. Try again: ");
+			}
 		}
-		else if(inputNum==3){
-			welcomeScreen();
+		catch(InputMismatchException e){
+			System.out.println("Choose one of the options");
+				run2();	
+				}
 		}
 		
-		else{
-			System.out.println("Not an avaliable option. Try again: ");
+	public static void run3(){
+		Scanner in = new Scanner(System.in);
+		try{
+			System.out.println("Enter: ");
+			System.out.println("'1' print all movies in order of release date");
+			System.out.println("'2' delete a movie");
+			System.out.println("'3' to return to the welcome screen");
+			int inputNum = in.nextInt();
+			
+			if(inputNum==1){
+				movieDateDirectory.traverse();
+				run3();
+			}
+			else if(inputNum==2){
+				System.out.println("Enter release date: ");
+				int RD= in.nextInt();
+				if(movieDateDirectory.search(RD).isAvailable() == false){
+					movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
+					movieDateDirectory.delete(movieDateDirectory.search(RD));
+					saveMovieBST(movieDateDirectory);
+					saveMovieHash(movieIDDirectory);
+				}
+				else{
+					System.out.println("You can't delete an available movie!");
+					}
+				run3();
+			}
+			else if(inputNum==3){
+				welcomeScreen();
+			}
+			
+			else{
+				System.out.println("Not an avaliable option. Try again: ");
+			}
 		}
-	}
-	
+	catch(InputMismatchException e){
+			System.out.println("Choose one of the options");
+				run3();	
+				}
+		}
 	public static void run4(){
 		Scanner in = new Scanner(System.in);
-		System.out.println("Enter movie ID: ");
-		int movieID = in.nextInt();
-		System.out.println(movieIDDirectory.lookUp(movieID).getName());
-		welcomeScreen();
-	}
+		try{
+			System.out.println("Enter movie ID: ");
+			int movieID = in.nextInt();
+			System.out.println(movieIDDirectory.lookUp(movieID).getName());
+			welcomeScreen();
+		}
+		catch(InputMismatchException e){
+			System.out.println("Choose one of the options");
+				run4();	
+				}
+		}
 	
 	public static void saveID(int ID){
 		try {
