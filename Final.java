@@ -7,6 +7,13 @@ public class Final implements java.io.Serializable{
 	static MovieBST movieDateDirectory = loadMovieBST();
 	static MovieHash movieIDDirectory = loadMovieHash();
 	static MovieHeap movieRTDirectory = loadMovieHeap();
+	static int IDCounter = loadID();
+	
+	public static void createID(MovieNode movie){
+		movie.setID(IDCounter);
+		IDCounter++;
+		saveID(IDCounter);
+	}
 	
 	public static void main(String[] args){
 		boolean correctID = false;
@@ -106,15 +113,40 @@ public class Final implements java.io.Serializable{
 				System.out.println("'3' delete first movie in Wish List");
 				int inputNum2 = in.nextInt();
 				if(inputNum2==1){
-					c.accessFrontWishList().getName();
-					run1();
-				}
+					if(c.accessFrontWishList()!=null){
+						System.out.println(c.accessFrontWishList().getName());
+						System.out.println("'1' delete first movie in Wish List");
+						System.out.println("'2' return to customer menu");
+						int inputNum12 = in.nextInt();
+						if(inputNum12==1){
+							System.out.println("'1' if movie was watched");
+							System.out.println("'2' if not");
+							int inputNum14 = in.nextInt();
+							if(inputNum14==1){
+								c.addToHaveWatchedList(c.accessFrontWishList());	
+							}
+							c.deleteWishList();
+							saveCustomerBST(customerDirectory);
+							System.out.println("deleted.");
+							run1();
+						}
+						else if(inputNum12==2){	
+							run1();
+						}
+					}
+					else{
+						System.out.println("Wish List is Empty");
+						run1();
+					}
+				}	
 				else if(inputNum2==2){
 					System.out.println("Enter 5 digit movie ID: ");
 					int inputID= in.nextInt();
 					MovieNode node = movieIDDirectory.lookUp(inputID);
-					if(node!=null){ 	
+					if(node!=null){ 
+						System.out.println(movieIDDirectory.lookUp(inputID).getName());	
 						c.addToWishList(movieIDDirectory.lookUp(inputID));
+						System.out.println("Movie Added");
 					}
 					else{
 						System.out.println("Movie doesn't exist");
@@ -243,11 +275,14 @@ public class Final implements java.io.Serializable{
 			String inputName = in.next();
 			System.out.println("Enter release date ");
 			int inputRD= in.nextInt();
-			System.out.println("Enter 5 digit id code ");	
-			int inputID = in.nextInt();
+			//System.out.println("Enter 5 digit id code ");	 //use attomatic id code
+			//int inputID = in.nextInt();
 			System.out.println("Enter rotten tomato score");
 			int inputRT= in.nextInt();
-			MovieNode movie = new MovieNode(inputName, inputRD, inputID, inputRT);
+			
+			
+			MovieNode movie = new MovieNode(IDCounter, inputName, inputRD, inputRT);
+			createID(movie);
 			movieRTDirectory.insert(movie);
 			movieIDDirectory.insert(movie);
 			movieDateDirectory.insert(movie);
@@ -279,11 +314,16 @@ public class Final implements java.io.Serializable{
 		}
 		else if(inputNum==2){
 			System.out.println("Enter release date: ");
-			int RD= in.nextInt();	
-			movieDateDirectory.delete(movieDateDirectory.search(RD));
-			movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
-			saveMovieBST(movieDateDirectory);
-			saveMovieHash(movieIDDirectory);
+			int RD= in.nextInt();
+			if(movieDateDirectory.search(RD).isAvailable() == false){
+				movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
+				movieDateDirectory.delete(movieDateDirectory.search(RD));
+				saveMovieBST(movieDateDirectory);
+				saveMovieHash(movieIDDirectory);
+			}
+			else{
+				System.out.println("You can't delete an available movie!");
+				}
 			run3();
 		}
 		else if(inputNum==3){
@@ -303,6 +343,33 @@ public class Final implements java.io.Serializable{
 		welcomeScreen();
 	}
 	
+	public static void saveID(int ID){
+		try {
+			FileOutputStream file = new FileOutputStream("ID.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeInt(ID);
+			out.close();
+			file.close();
+        	} 
+        	catch (IOException e) {
+			e.printStackTrace();
+        	}
+   	}
+
+	public static int loadID(){
+		int ID;
+        	try {
+			FileInputStream file = new FileInputStream("ID.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+            		ID = (int) in.readInt();
+           		in.close();
+            		file.close();
+        	} 
+        	catch (Exception e) {
+            		ID = 10012;
+        	}
+        	 return ID;
+    	}
 	public static void saveMovieBST(MovieBST movie){
 		try {
 			FileOutputStream file = new FileOutputStream("movieBST.ser");
@@ -327,6 +394,30 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieBST();
+         
+            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	
+            	movie.insert(movie1);
+            	movie.insert(movie2);
+            	movie.insert(movie3);
+            	movie.insert(movie4);
+            	movie.insert(movie5);
+            	movie.insert(movie6);
+            	movie.insert(movie7);
+            	movie.insert(movie8);
+            	movie.insert(movie9);
+            	movie.insert(movie10);
+            	movie.insert(movie11);
         	}
         return movie;
     	}
@@ -355,6 +446,30 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieHeap();
+            	
+            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	
+            	movie.insert(movie1);
+            	movie.insert(movie2);
+            	movie.insert(movie3);
+            	movie.insert(movie4);
+            	movie.insert(movie5);
+            	movie.insert(movie6);
+            	movie.insert(movie7);
+            	movie.insert(movie8);
+            	movie.insert(movie9);
+            	movie.insert(movie10);
+            	movie.insert(movie11);
         	}
         return movie;
     	}
@@ -383,6 +498,30 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieHash();
+            	
+            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	
+            	movie.insert(movie1);
+            	movie.insert(movie2);
+            	movie.insert(movie3);
+            	movie.insert(movie4);
+            	movie.insert(movie5);
+            	movie.insert(movie6);
+            	movie.insert(movie7);
+            	movie.insert(movie8);
+            	movie.insert(movie9);
+            	movie.insert(movie10);
+            	movie.insert(movie11);
         	}
         return movie;
     	}
@@ -411,7 +550,7 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new CustomerBST();
-			CustomerNode customer1 = new CustomerNode( "Zach_Qutikin", 1234, "zq@cc.edu");
+		CustomerNode customer1 = new CustomerNode( "Zach_Qutikin", 1234, "zq@cc.edu");
             	CustomerNode customer2 = new CustomerNode( "Evan_Lyons", 2345, "el@cc.edu");
             	CustomerNode customer3 = new CustomerNode( "Arjun_Premkumar", 3456, "ap@cc.edu");
             	CustomerNode customer4 = new CustomerNode( "Derin_Gezgin", 4567, "dg@cc.edu");
@@ -425,8 +564,6 @@ public class Final implements java.io.Serializable{
             	movie.insert(customer5);
             	movie.insert(customer6);
             	movie.insert(customer7);
-            	
-			
         	}
         return movie;
     	}

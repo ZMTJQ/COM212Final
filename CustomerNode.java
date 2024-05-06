@@ -39,7 +39,7 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public void printWishList(){
-		if(wishList.front()==null){
+		if(wishList==null){
 			wishList = new Queue();
 			System.out.println("No movies in Wish List");
 		}
@@ -53,7 +53,7 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public MovieNode accessFrontWishList(){
-		if(wishList.front()==null){
+		if(wishList ==null){
 			wishList = new Queue();
 			return null;
 		}
@@ -74,24 +74,19 @@ public class CustomerNode implements java.io.Serializable{
 	}
 	
 	public void addToWishList(MovieNode movie){
-		if(wishList.front()==null){
-			wishList = new Queue();
-			if(movie!=null){
+		if(movie!=null){
+			if(wishList ==null){
+				wishList = new Queue();
 				wishList.enqueue(movie);
 			}
 			else{
-				System.out.println("Can't add movie");
+				wishList.enqueue(movie);
 			}
 		}
 		else{
-			if(movie!=null){
-				wishList.enqueue(movie);
-			}
-			else{
 				System.out.println("Can't add movie");
 			}
 		}
-	}
 	
 	public void addToHaveWatchedList(MovieNode movie){
 		haveWatchedList.insert(movie);
