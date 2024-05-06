@@ -17,12 +17,51 @@ public class Final implements java.io.Serializable{
 	}
 	
 	public static void main(String[] args){
-		login();
+		run();
+	}
+	public static void run(){
+		Scanner in = new Scanner(System.in);
+		System.out.print("Enter '1' for Customer and '2' for Admin: ");
+			int inputU = in.nextInt();
+			try{
+				if(inputU==1){
+					customerLogin();
+					
+				}
+				else if(inputU==2){
+					adminLogin();
+				}
+			}
+			catch(InputMismatchException e){
+				System.out.println("Not an avaliable option.");
+				run();
+			}
+	}
+	public static void customerLogin(){
+		Scanner in = new Scanner(System.in);
+		System.out.print("Enter customer credit card:");
+		int inputCCard = in.nextInt();
+		CustomerNode User = customerDirectory.search(inputCCard);
+		try{
+			if(customerDirectory.search(inputCCard)!=null){
+				System.out.println("Hello "+User.getName());
+				}
+			else{
+				System.out.println("Incorrect credit card.");
+				customerLogin();
+			}
+		
+		}
+		catch(InputMismatchException e){
+			System.out.println("Incorrect credit card.");
+			customerLogin();
+		}
 	}
 	
-	public static void login(){
+	public static void adminLogin(){
 		boolean correctID = false;
 		Scanner in = new Scanner(System.in);
+		
 		try{
 			while(correctID==false){
 				System.out.print("Enter admin ID:");
@@ -39,7 +78,7 @@ public class Final implements java.io.Serializable{
 		}
 		catch(InputMismatchException e){
 				System.out.println("Incorrect ID");
-				login();
+				adminLogin();
 		}
 	}
 	public static void welcomeScreen(){
