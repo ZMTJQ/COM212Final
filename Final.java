@@ -258,7 +258,7 @@ public class Final implements java.io.Serializable{
 			
 			
 			MovieNode movie = new MovieNode(IDCounter, inputName, inputRD, inputRT);
-			IDCounter++;
+			createID(movie);
 			movieRTDirectory.insert(movie);
 			movieIDDirectory.insert(movie);
 			movieDateDirectory.insert(movie);
@@ -332,7 +332,7 @@ public class Final implements java.io.Serializable{
         	try {
 			FileInputStream file = new FileInputStream("ID.ser");
 			ObjectInputStream in = new ObjectInputStream(file);
-            		ID = (int) in.readObject();
+            		ID = (int) in.readInt();
            		in.close();
             		file.close();
         	} 
