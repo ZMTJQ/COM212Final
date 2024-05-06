@@ -7,7 +7,13 @@ public class Final implements java.io.Serializable{
 	static MovieBST movieDateDirectory = loadMovieBST();
 	static MovieHash movieIDDirectory = loadMovieHash();
 	static MovieHeap movieRTDirectory = loadMovieHeap();
-	static int IDCounter = 10000;
+	static int IDCounter = loadID();
+	
+	public static void createID(MovieNode movie){
+		movie.setID(IDCounter);
+		IDCounter++;
+		saveID(IDCounter);
+	}
 	
 	public static void main(String[] args){
 		boolean correctID = false;
@@ -308,6 +314,33 @@ public class Final implements java.io.Serializable{
 		welcomeScreen();
 	}
 	
+	public static void saveID(int ID){
+		try {
+			FileOutputStream file = new FileOutputStream("ID.ser");
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeInt(ID);
+			out.close();
+			file.close();
+        	} 
+        	catch (IOException e) {
+			e.printStackTrace();
+        	}
+   	}
+
+	public static int loadID(){
+		int ID;
+        	try {
+			FileInputStream file = new FileInputStream("ID.ser");
+			ObjectInputStream in = new ObjectInputStream(file);
+            		ID = (int) in.readObject();
+           		in.close();
+            		file.close();
+        	} 
+        	catch (Exception e) {
+            		ID = 10012;
+        	}
+        	 return ID;
+    	}
 	public static void saveMovieBST(MovieBST movie){
 		try {
 			FileOutputStream file = new FileOutputStream("movieBST.ser");
@@ -332,30 +365,18 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieBST();
-            	
-            	IDCounter = 10000;
-            	IDCounter++;
-            	MovieNode movie1 = new MovieNode(IDCounter, "Episode_IV:_A_New_Hope",19770525,96);
-            	IDCounter++;
-            	MovieNode movie2 = new MovieNode(IDCounter, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
-            	IDCounter++;
-            	MovieNode movie3 = new MovieNode(IDCounter, "The_Fast_and_The_Furious",20010622,74);
-            	IDCounter++;
-            	MovieNode movie4 = new MovieNode(IDCounter, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
-            	IDCounter++;
-            	MovieNode movie5 = new MovieNode(IDCounter, "Fast_&_Furious",20090403,28);
-            	IDCounter++;
-            	MovieNode movie6 = new MovieNode(IDCounter, "Fast_Five",20110429,78);
-            	IDCounter++;
-            	MovieNode movie7 = new MovieNode(IDCounter, "Fast_&_Furious_6",20130524,71);
-            	IDCounter++;
-            	MovieNode movie8 = new MovieNode(IDCounter, "Furious_7",20150403,81);
-            	IDCounter++;
-            	MovieNode movie9 = new MovieNode(IDCounter, "The_Fate_Of_The_Furious",20170414,67);
-            	IDCounter++;
-            	MovieNode movie10 = new MovieNode(IDCounter, "Hobbs_&_Shaw",20190802,66);
-            	IDCounter++;
-            	MovieNode movie11 = new MovieNode(IDCounter, "F9_The_Fast_Saga",20210625,59);
+         
+            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
             	
             	movie.insert(movie1);
             	movie.insert(movie2);
@@ -368,12 +389,6 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie9);
             	movie.insert(movie10);
             	movie.insert(movie11);
-            	
-            	/*
-            	MovieNode movie6 = new MovieNode
-            	MovieNode movie7 = new MovieNode
-            	MovieNode movie8 = new MovieNode
-            	*/
         	}
         return movie;
     	}
@@ -402,6 +417,30 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieHeap();
+            	
+            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	
+            	movie.insert(movie1);
+            	movie.insert(movie2);
+            	movie.insert(movie3);
+            	movie.insert(movie4);
+            	movie.insert(movie5);
+            	movie.insert(movie6);
+            	movie.insert(movie7);
+            	movie.insert(movie8);
+            	movie.insert(movie9);
+            	movie.insert(movie10);
+            	movie.insert(movie11);
         	}
         return movie;
     	}
@@ -430,6 +469,30 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieHash();
+            	
+            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	
+            	movie.insert(movie1);
+            	movie.insert(movie2);
+            	movie.insert(movie3);
+            	movie.insert(movie4);
+            	movie.insert(movie5);
+            	movie.insert(movie6);
+            	movie.insert(movie7);
+            	movie.insert(movie8);
+            	movie.insert(movie9);
+            	movie.insert(movie10);
+            	movie.insert(movie11);
         	}
         return movie;
     	}
@@ -458,6 +521,20 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new CustomerBST();
+		CustomerNode customer1 = new CustomerNode( "Zach_Qutikin", 1234, "zq@cc.edu");
+            	CustomerNode customer2 = new CustomerNode( "Evan_Lyons", 2345, "el@cc.edu");
+            	CustomerNode customer3 = new CustomerNode( "Arjun_Premkumar", 3456, "ap@cc.edu");
+            	CustomerNode customer4 = new CustomerNode( "Derin_Gezgin", 4567, "dg@cc.edu");
+            	CustomerNode customer5 = new CustomerNode( "Dimitris_Seremitis", 5678, "ds@cc.edu");
+            	CustomerNode customer6 = new CustomerNode( "Nick_Essery", 6789, "ne@cc.edu");
+            	CustomerNode customer7 = new CustomerNode( "Johnny_Andreasen", 7890, "ja@cc.edu");
+            	movie.insert(customer1);
+            	movie.insert(customer2);
+            	movie.insert(customer3);
+            	movie.insert(customer4);
+            	movie.insert(customer5);
+            	movie.insert(customer6);
+            	movie.insert(customer7);
         	}
         return movie;
     	}
