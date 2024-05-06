@@ -107,7 +107,7 @@ public class Final implements java.io.Serializable{
 				System.out.println("'3' delete first movie in Wish List");
 				int inputNum2 = in.nextInt();
 				if(inputNum2==1){
-					c.accessFrontWishList().getName();
+					System.out.println(c.accessFrontWishList().getName());
 					run1();
 				}
 				else if(inputNum2==2){
@@ -116,6 +116,7 @@ public class Final implements java.io.Serializable{
 					MovieNode node = movieIDDirectory.lookUp(inputID);
 					if(node!=null){ 	
 						c.addToWishList(movieIDDirectory.lookUp(inputID));
+						System.out.println("Movie Added");
 					}
 					else{
 						System.out.println("Movie doesn't exist");
