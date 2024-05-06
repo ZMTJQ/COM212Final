@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.*;
+import java.util.*;
 
 public class Final implements java.io.Serializable{
 
@@ -16,57 +17,68 @@ public class Final implements java.io.Serializable{
 	}
 	
 	public static void main(String[] args){
+		login();
+	}
+	
+	public static void login(){
 		boolean correctID = false;
 		Scanner in = new Scanner(System.in);
-		while(correctID==false){
-			System.out.print("Enter admin ID:");
-			int inputID = in.nextInt();
-			if(inputID==12345){
-				System.out.println("Welcome Admin");
-				correctID=true;
-				welcomeScreen();
+		try{
+			while(correctID==false){
+				System.out.print("Enter admin ID:");
+				int inputID = in.nextInt();
+				if(inputID==12345){
+					System.out.println("Welcome Admin");
+					correctID=true;
+					welcomeScreen();
+				}
+				else{
+					System.out.println("Incorrect ID");
+				}
 			}
-			else{
+		}
+		catch(InputMismatchException e){
 				System.out.println("Incorrect ID");
-			}
+				login();
 		}
 	}
 	public static void welcomeScreen(){
 		Scanner in = new Scanner(System.in);
 		boolean correctNum = false;
-		while(correctNum==false){
-			System.out.println("Enter: ");
-			System.out.println("'1' for customer list");
-			System.out.println("'2' for admin control of movies");
-			System.out.println("'3' to view all movies");
-			System.out.println("'4' for customer access");
-			System.out.println("'5' to quit");
-			int inputNum = in.nextInt();
-		
-			if(inputNum==1){
-				run1();
-				correctNum=true;
-			}
-			else if(inputNum==2){
-				run2();
-				correctNum=true;
-			}
-			else if(inputNum==3){
-				run3();
-				correctNum=true;
-			}
-			else if(inputNum==4){
-				run4();
-				correctNum=true;
-			}
-			else if(inputNum==5){
-				System.out.println("Closing program...");
-				break;
-			}
-			else{
-				System.out.println("Not an avaliable option. Try again: ");
+		try{
+			while(correctNum==false){
+				System.out.println("Enter: ");
+				System.out.println("'1' for customer list");
+				System.out.println("'2' for admin control of movies");
+				System.out.println("'3' to view all movies");
+				System.out.println("'4' for customer access");
+				int inputNum = in.nextInt();
+			
+				if(inputNum==1){
+					run1();
+					correctNum=true;
+				}
+				else if(inputNum==2){
+					run2();
+					correctNum=true;
+				}
+				else if(inputNum==3){
+					run3();
+					correctNum=true;
+				}
+				else if(inputNum==4){
+					run4();
+					correctNum=true;
+				}
+				else{
+					System.out.println("Not an avaliable option. Try again: ");
+				}
 			}
 		}
+		catch(InputMismatchException e){
+				System.out.println("Choose one of the options");
+				welcomeScreen();
+		}		
 		
 	}
 	
