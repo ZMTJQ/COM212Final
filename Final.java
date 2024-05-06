@@ -290,11 +290,16 @@ public class Final implements java.io.Serializable{
 		}
 		else if(inputNum==2){
 			System.out.println("Enter release date: ");
-			int RD= in.nextInt();	
-			movieDateDirectory.delete(movieDateDirectory.search(RD));
-			movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
-			saveMovieBST(movieDateDirectory);
-			saveMovieHash(movieIDDirectory);
+			int RD= in.nextInt();
+			if(movieDateDirectory.search(RD).isAvailable() == false){
+				movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
+				movieDateDirectory.delete(movieDateDirectory.search(RD));
+				saveMovieBST(movieDateDirectory);
+				saveMovieHash(movieIDDirectory);
+			}
+			else{
+				System.out.println("You can't delete an available movie!");
+				}
 			run3();
 		}
 		else if(inputNum==3){
