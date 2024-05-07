@@ -98,7 +98,7 @@ public class List implements java.io.Serializable{
 	//prints the contents of the list in order first to last
 	public void printList(){
 		if (head != null){
-			System.out.println(n);
+			//System.out.println(n);
 			MovieNode temp = head;
 			while (temp!=null) {
 				System.out.println(temp.getName());
@@ -107,7 +107,7 @@ public class List implements java.io.Serializable{
 		}
 		
 		else {
-			System.out.println(n);
+			//System.out.println(n);
 		}
 	}
 	
