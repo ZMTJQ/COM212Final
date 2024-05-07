@@ -46,7 +46,7 @@ public class Final implements java.io.Serializable{
 		System.out.println("     _| || |         _| || |");
 		System.out.println("    /___(| |        /___(| |");
 		System.out.println("       /___(           /___(");
-		System.out.println("Logo inspiration credits to Joan G. Stark");
+		System.out.println("\033[3mLogo inspiration credits to Joan G. Stark\033[0m");
 		System.out.println();
 		System.out.println();
 	}
@@ -534,7 +534,7 @@ public class Final implements java.io.Serializable{
 				System.out.println("Enter 4 digit credit card number: ");
 				int inputCC= in.nextInt();	
 				CustomerNode c = customerDirectory.search(inputCC);
-				System.out.println(c.getName() + c.getCreditCard() + c.getEmail());	
+				System.out.println(c.getName() + " " + c.getCreditCard() + " " + " "+ c.getEmail());	
 				System.out.println("What would you like to do? ");	
 				System.out.println("'1' access Wish List");
 				System.out.println("'2' access Have Watched List");
@@ -704,9 +704,9 @@ public class Final implements java.io.Serializable{
 				run2();
 			}
 			else if(inputNum==2){
-				MovieNode temp = movieRTDirectory.findMin();
+				movieDateDirectory.search(movieRTDirectory.findMin().getReleaseDate()).setUavailable();
+				movieIDDirectory.lookUp(movieRTDirectory.findMin().getID()).setUavailable();
 				movieRTDirectory.deleteMin();
-				temp.setUavailable();
 				saveMovieHeap(movieRTDirectory);
 				saveMovieBST(movieDateDirectory);
 				saveMovieHash(movieIDDirectory);
