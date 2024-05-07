@@ -72,6 +72,10 @@ public class Final implements java.io.Serializable{
 				else if(inputU==2){
 					adminLogin();
 				}
+				else{
+					System.out.println("TRY AGAIN");
+					run();
+				}
 			}
 			catch(InputMismatchException e){
 				System.out.println("Not an avaliable option.");
@@ -123,6 +127,9 @@ public class Final implements java.io.Serializable{
 						System.out.println("Incorrect credit card.");
 						customerLogin();
 					}
+			}
+			else{
+				customerLogin();
 			}
 		}
 		catch(InputMismatchException e){
