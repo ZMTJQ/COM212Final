@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.*;
 
-public class Final2 implements java.io.Serializable{
+public class Final implements java.io.Serializable{
 
 	static CustomerBST customerDirectory = loadCustomerBST();
 	static MovieBST movieDateDirectory = loadMovieBST();
@@ -21,7 +21,7 @@ public class Final2 implements java.io.Serializable{
 	}
 	public static void run(){
 		Scanner in = new Scanner(System.in);
-		System.out.print("Enter '1' for Customer and '2' for Admin: ");
+		System.out.print("Enter '1' for Customer login or '2' for Admin login: ");
 			int inputU = in.nextInt();
 			try{
 				if(inputU==1){
@@ -39,25 +39,51 @@ public class Final2 implements java.io.Serializable{
 	}
 	public static void customerLogin(){
 		Scanner in = new Scanner(System.in);
-		System.out.print("Enter customer credit card:");
-		int inputCCard = in.nextInt();
-		CustomerNode User = customerDirectory.search(inputCCard);
+		System.out.println("'1' to create an account or '2' for customer login");
+		int inputNum = in.nextInt();
 		try{
-			if(customerDirectory.search(inputCCard)!=null){
-				System.out.println("Hello "+User.getName());
-				}
-			else{
-				System.out.println("Incorrect credit card.");
-				customerLogin();
+			if(inputNum==1){
+				System.out.println("Create an Account:");
+				System.out.println("Enter username: ");	
+				String inputName = in.next();
+				System.out.println("Enter 4 digit credit card number: ");
+				int inputCC= in.nextInt();
+				System.out.println("Enter email address: ");	
+				String inputEmail = in.next();
+				CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
+				customerDirectory.insert(customer);
+				saveCustomerBST(customerDirectory);
+				System.out.println("Hello "+customer.getName());
+				customerScreen(customer);
 			}
+			
+			else if(inputNum==2){
+					
+				System.out.print("Enter customer credit card:");
+				int inputCCard = in.nextInt();
+				CustomerNode User = customerDirectory.search(inputCCard);
+					try{
+						if(customerDirectory.search(inputCCard)!=null){
+							customerScreen(User);
+							System.out.println("Hello "+User.getName());
+						}
+						else{
+							System.out.println("Incorrect credit card.");
+							customerLogin();
+						}
 		
+					}
+					catch(InputMismatchException e){
+						System.out.println("Incorrect credit card.");
+						customerLogin();
+					}
+			}
 		}
 		catch(InputMismatchException e){
-			System.out.println("Incorrect credit card.");
-			customerLogin();
+						System.out.println("Wrong input type. Restarting Log-in process...");
+						customerLogin();
 		}
 	}
-	
 	public static void adminLogin(){
 		boolean correctID = false;
 		Scanner in = new Scanner(System.in);
@@ -81,6 +107,307 @@ public class Final2 implements java.io.Serializable{
 				adminLogin();
 		}
 	}
+	
+	public static void customerScreen(CustomerNode customer1){
+	Scanner in = new Scanner(System.in);
+		try{
+			System.out.println("Enter: ");
+			System.out.println("'1' to view personal info");
+			System.out.println("'2' to search and access a movie");
+			System.out.println("'3' to view all movies");
+			System.out.println("'4' to logout");
+			int inputNum = in.nextInt();
+			
+				if(inputNum==1){
+					customerRun1(customer1);
+				}
+				else if(inputNum==2){
+					customerRun2(customer1);	
+				}
+				else if(inputNum==3){
+					customerRun3(customer1);
+				}
+				else if(inputNum==4){
+					System.out.println("logging out...");
+					run();
+				}
+				else{
+					System.out.println("Not an avaliable option. Try again: ");
+				}
+			}
+		catch(InputMismatchException e){
+				System.out.println("Choose one of the options");
+				welcomeScreen();
+		}		
+		
+	}
+	
+	public static void customerRun1(CustomerNode customer2){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Info: ");
+		System.out.println(customer2.getName());
+		System.out.println(customer2.getCreditCard());
+		System.out.println(customer2.getEmail());
+		System.out.println();
+		try{
+			System.out.println("Enter: ");
+			System.out.println("'1' access your wish list");
+			System.out.println("'2' access your have watched list");
+			System.out.println("'3' to access or search for a movie");
+			System.out.println("'4' to see every movie in the directory");
+			System.out.println("'5' to log out");
+			int inputNum = in.nextInt();
+			
+			if(inputNum==1){
+				System.out.println("Enter: ");
+				System.out.println("'1' access first movie in wish list");
+				System.out.println("'2' delete first movie in wish list");
+				System.out.println("'3' add movie to wishList");
+				System.out.println("'4' print entire wish list");
+				System.out.println("'5' to return to prior screen");
+				int inputNum1 = in.nextInt();
+					if(inputNum1==1){
+						if(customer2.accessFrontWishList()!=null){
+							System.out.println(customer2.accessFrontWishList().getName());
+							System.out.println("'1' delete first movie in Wish List");
+							System.out.println("'2' return to customer menu");
+							int inputNum12 = in.nextInt();
+							if(inputNum12==1){
+								System.out.println("'1' if movie was watched");
+								System.out.println("'2' if not");
+								int inputNums = in.nextInt();
+								if(inputNums==1){
+									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
+									saveCustomerBST(customerDirectory);
+									customerRun1(customer2);	
+								}
+								customer2.deleteWishList();
+								saveCustomerBST(customerDirectory);
+								System.out.println("deleted.");
+								customerRun1(customer2);
+							}
+							else if(inputNum12==2){	
+								customerRun1(customer2);
+							}
+						}
+						else{
+							System.out.println("Wish List is Empty");
+							customerRun1(customer2);
+						}
+					}
+					else if(inputNum1==2){
+						if(customer2.accessFrontWishList()!=null){
+							System.out.println("'1' if movie was watched");
+							System.out.println("'2' if not");
+							int inputNum12 = in.nextInt();
+							if(inputNum12==1){
+								customer2.addToHaveWatchedList(customer2.accessFrontWishList());
+								saveCustomerBST(customerDirectory);	
+							}
+							customer2.deleteWishList();
+							saveCustomerBST(customerDirectory);
+							System.out.println("deleted.");
+							customerRun1(customer2);
+							}
+						
+						else{
+							System.out.println("Wish List is Empty");
+							customerRun1(customer2);
+						}
+					}
+					
+					else if(inputNum1==3){
+						System.out.println("Enter 5 digit movie ID: ");
+						int inputID1= in.nextInt();
+						MovieNode node = movieIDDirectory.lookUp(inputID1);
+						if(node!=null){ 
+							System.out.println(movieIDDirectory.lookUp(inputID1).getName());	
+							customer2.addToWishList(movieIDDirectory.lookUp(inputID1));
+							saveCustomerBST(customerDirectory);
+							System.out.println("Movie Added");
+						}
+						else{
+							System.out.println("Movie doesn't exist");
+						}
+						saveCustomerBST(customerDirectory);
+						customerRun1(customer2);
+					}
+					
+					else if(inputNum1==4){
+						customer2.printWishList();
+						customerRun1(customer2);
+					}
+					else if(inputNum1==5){
+						customerRun1(customer2);
+					}
+					else{
+						System.out.println("Not an avaliable option. Try again: ");
+					}
+			}
+			else if(inputNum==2){
+				System.out.println("Enter: ");
+				System.out.println("'1' search for movie in have watched list");
+				System.out.println("'2' delete a movie in have watched list");
+				System.out.println("'3' print have watched list");
+				System.out.println("'4' to return to prior screen");
+				int inputNum1 = in.nextInt();
+					if(inputNum1==1){
+						System.out.println("Type 5 digit movie ID");
+						int inputNext = in.nextInt();
+						if(customer2.searchHaveWatchedList(inputNext)!=null){
+							System.out.println(customer2.searchHaveWatchedList(inputNext).getName());
+							customerRun1(customer2);
+							}
+						else{
+							System.out.println("Moive is not in have watched");
+							customerRun1(customer2);
+						}
+					}
+					else if(inputNum1==2){
+						System.out.println("Type 5 digit movie ID");
+						int inputNext1 = in.nextInt();
+						if(customer2.searchHaveWatchedList(inputNext1)!=null){
+							customer2.deleteHaveWatchedList(customer2.searchHaveWatchedList(inputNext1));
+							saveCustomerBST(customerDirectory);
+							System.out.println("deleted");
+							customerRun1(customer2);
+							}
+						else{
+							System.out.println("Movie is not in have watched");
+							customerRun1(customer2);
+						}
+	
+					}
+					
+					else if(inputNum1==3){
+						customer2.printHaveWatchedList();
+						System.out.println();
+						customerRun1(customer2);
+					}
+					
+					else if(inputNum1==4){
+						customerRun1(customer2);
+					}
+					else{
+						System.out.println("Not an avaliable option. Try again: ");
+					}
+			}	
+			
+			else if(inputNum==3){
+				customerRun2(customer2);
+			}
+			else if(inputNum==4){
+				customerRun3(customer2);
+			}
+			else if(inputNum==5){
+					System.out.println("logging out...");
+					run();
+				}
+			else{
+				System.out.println("Not an avaliable option. Try again: ");
+			}
+		}
+		catch(InputMismatchException e){
+				System.out.println("Choose one of the options");
+				customerRun1(customer2);
+		}
+	}		
+	
+	public static void customerRun2(CustomerNode customer3){
+		Scanner in = new Scanner(System.in);
+		try{
+			System.out.println("'1' to search");
+			System.out.println("'2' to return to previous");
+			int next = in.nextInt();
+			if (next == 1){
+				System.out.println("To search, enter movie ID: ");
+				int movieID1 = in.nextInt();
+				if(movieIDDirectory.lookUp(movieID1)!=null){
+					System.out.println(movieIDDirectory.lookUp(movieID1).getName());
+					System.out.println("'1' to add this to your wish list or '2' to return initial screen");
+					int yesOrNo = in.nextInt();
+					if(yesOrNo == 1){
+						customer3.addToWishList(movieIDDirectory.lookUp(movieID1));
+						saveCustomerBST(customerDirectory);
+						customerRun2(customer3);
+					}
+					else if(yesOrNo == 2){
+						customerScreen(customer3);
+					}
+					
+					else{
+						System.out.println("Choose one of the options");
+					}
+					
+				}
+				else{
+					System.out.println("Movie not found");
+					welcomeScreen();
+				}
+			}
+			else if(next==2){
+				customerScreen(customer3);
+			}
+			
+			else{
+				System.out.println("Choose one of the options");
+			}
+		}
+		catch(InputMismatchException e){
+			System.out.println("Wrong input type");
+				customerRun2(customer3);	
+		}
+	}
+	
+	public static void customerRun3(CustomerNode customer4){
+		Scanner in = new Scanner(System.in);
+			try{
+				System.out.println("'1' to see all movies");
+				System.out.println("'2' to return to previous");
+				int next1 = in.nextInt();
+				if (next1 == 1){
+					movieDateDirectory.traverse();
+					System.out.println();
+					System.out.println("'1' to add a movie to your wish list");
+					System.out.println("'2' to return initial screen");
+					int yesOrNo1 = in.nextInt();
+					if(yesOrNo1 == 1){
+						System.out.println("Enter movie ID: ");
+						int movieID2 = in.nextInt();
+						if(movieIDDirectory.lookUp(movieID2)!=null){
+							customer4.addToWishList(movieIDDirectory.lookUp(movieID2));
+							saveCustomerBST(customerDirectory);
+							customerRun3(customer4);
+						}
+				
+						else{
+							System.out.println("Movie not found");
+							customerRun3(customer4);
+						}
+						
+					}
+					else if(yesOrNo1 == 2){
+						customerScreen(customer4);
+					}
+					
+					else{
+						System.out.println("Choose one of the options");
+					}
+				}
+				else if (next1 == 2){
+					customerScreen(customer4);
+				}
+				else{
+				System.out.println("Choose one of the options");
+				}
+			}
+		catch(InputMismatchException e){
+			System.out.println("Wrong input type");
+				customerRun3(customer4);	
+		}
+	}
+	
+	
 	public static void welcomeScreen(){
 		Scanner in = new Scanner(System.in);
 		boolean correctNum = false;
@@ -449,11 +776,17 @@ public class Final2 implements java.io.Serializable{
 		try{
 			System.out.println("Enter movie ID: ");
 			int movieID = in.nextInt();
-			System.out.println(movieIDDirectory.lookUp(movieID).getName());
-			welcomeScreen();
+			if(movieIDDirectory.lookUp(movieID)!=null){
+				System.out.println(movieIDDirectory.lookUp(movieID).getName());
+				welcomeScreen();
+			}
+			else{
+				System.out.println("Movie not found");
+				welcomeScreen();
+			}
 		}
 		catch(InputMismatchException e){
-			System.out.println("Wrong input type. Returning to customer access input. ");
+			System.out.println("Choose one of the options");
 				run4();	
 				}
 		}
