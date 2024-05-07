@@ -408,17 +408,17 @@ public class Final implements java.io.Serializable{
 	}
 	
 	
-	
 	public static void welcomeScreen(){
 		Scanner in = new Scanner(System.in);
 		boolean correctNum = false;
 		try{
 			while(correctNum==false){
 				System.out.println("Enter: ");
-				System.out.println("'1' for customer list");
-				System.out.println("'2' for admin control of movies");
-				System.out.println("'3' to view all movies");
-				System.out.println("'4' for customer access");
+				System.out.println("'1' for customer list: (edit all customer information)");
+				System.out.println("'2' for admin control of movies: (edit movie information)");
+				System.out.println("'3' to view all movies: ");
+				System.out.println("'4' for customer access: (Search movies by ID)");
+				System.out.println("'5' to quit program");
 				int inputNum = in.nextInt();
 			
 				if(inputNum==1){
@@ -436,6 +436,10 @@ public class Final implements java.io.Serializable{
 				else if(inputNum==4){
 					run4();
 					correctNum=true;
+				}
+				else if(inputNum==5){
+					System.out.println("Closing program...");
+					break;
 				}
 				else{
 					System.out.println("Not an avaliable option. Try again: ");
@@ -470,6 +474,7 @@ public class Final implements java.io.Serializable{
 				CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
 				customerDirectory.insert(customer);
 				saveCustomerBST(customerDirectory);
+				System.out.println(customer.getName()+" has been added.");
 				run1();
 			}
 			else if(inputNum==2){
@@ -634,7 +639,7 @@ public class Final implements java.io.Serializable{
 		}
 	
 	catch(InputMismatchException e){
-			System.out.println("Choose one of the options");
+			System.out.println("Wrong input type. Returning to customer screen. ");
 				run1();	
 				}
 		}
@@ -691,7 +696,7 @@ public class Final implements java.io.Serializable{
 			}
 		}
 		catch(InputMismatchException e){
-			System.out.println("Choose one of the options");
+			System.out.println("Wrong input type. Returning to admin screen. ");
 				run2();	
 				}
 		}
@@ -732,7 +737,7 @@ public class Final implements java.io.Serializable{
 			}
 		}
 	catch(InputMismatchException e){
-			System.out.println("Choose one of the options");
+			System.out.println("Wrong input type. Returning to movie menu. ");
 				run3();	
 				}
 		}
