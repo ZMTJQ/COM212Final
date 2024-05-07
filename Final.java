@@ -15,8 +15,48 @@ public class Final implements java.io.Serializable{
 		IDCounter++;
 		saveID(IDCounter);
 	}
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+	
+	public static void printLogo(){
+		System.out.println("     _    _");
+		System.out.println("    ( )__//)");
+		System.out.println("    .'     )");
+		System.out.println(" __/b d  .   )");
+		System.out.println("(_Y_`,       .)");
+		System.out.println(" `--'-,-'    )");
+		System.out.println("      (.    )");
+		System.out.println("      (     )");
+		System.out.println("     (     )");
+		System.out.println("    (  .  )         .---.");
+		System.out.println("   (      )        (     )");
+		System.out.println("   (    .  )      (  .    )");
+		System.out.println("   (        )    (      .  ),");
+		System.out.println("   ( .       `'''  .       `)");
+		System.out.println("    (    CC FILMS           .)");
+		System.out.println("    ((  .        .  (    .   )");
+		System.out.println("    ((          .  (         ) ");
+		System.out.println("     ((        )   _( .   .  )  ");
+		System.out.println("     ( (  .    )'''`(.(     )   ");
+		System.out.println("     ( (      )      ( ( . )     ");
+		System.out.println("      |~(   ))        |~(  )");
+		System.out.println("      | || |          | || |");
+		System.out.println("      | || |          | || |");
+		System.out.println("     _| || |         _| || |");
+		System.out.println("    /___(| |        /___(| |");
+		System.out.println("       /___(           /___(");
+		System.out.println("Logo inspiration credits to Joan G. Stark");
+		System.out.println();
+		System.out.println();
+	}
 	
 	public static void main(String[] args){
+		
+		System.out.println("------------");
+		System.out.println(ANSI_BLACK_BACKGROUND + ANSI_CYAN + "| CC FILMS |" + ANSI_RESET);
+		System.out.println("------------");
+		printLogo();
 		run();
 	}
 	public static void run(){
@@ -143,7 +183,7 @@ public class Final implements java.io.Serializable{
 			}
 		catch(InputMismatchException e){
 				System.out.println("Choose one of the options");
-				welcomeScreen();
+				customerScreen(customer1);
 		}		
 		
 	}

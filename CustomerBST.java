@@ -137,7 +137,7 @@ public class CustomerBST implements java.io.Serializable{
 	private void traverser(CustomerNode x){
 		if (x!=null){
 			traverser(x.getLeft());
-			System.out.print(x.getCreditCard() + " ");
+			System.out.println(x.getName() +": " + x.getCreditCard() + " ");
 			traverser(x.getRight());
 		}
 	}

@@ -9,11 +9,11 @@ public class MovieNode implements java.io.Serializable{
 	private MovieNode left;
 	private MovieNode right;
 
-	public MovieNode(String name0,int releasedate0, int uniqueidcode0, int rottenTomatoes0) {
+	public MovieNode(int ID, String name0,int releasedate0, int rottenTomatoes0) {
 		available = true;
 		name = name0;
 		ReleaseDate = releasedate0%100000000;
-		UniqueIdCode = uniqueidcode0%100000;
+		UniqueIdCode = ID;
 		RottenTomatoes = rottenTomatoes0;
 		left = null;
 		right = null;
