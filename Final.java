@@ -21,6 +21,7 @@ public class Final implements java.io.Serializable{
 	}
 	public static void run(){
 		Scanner in = new Scanner(System.in);
+		try{
 		System.out.print("Enter '1' for Customer login or '2' for Admin login: ");
 			int inputU = in.nextInt();
 			try{
@@ -36,6 +37,11 @@ public class Final implements java.io.Serializable{
 				System.out.println("Not an avaliable option.");
 				run();
 			}
+		}
+		catch(InputMismatchException e){
+			System.out.println("Not an available option");
+			run();
+		}
 	}
 	public static void customerLogin(){
 		Scanner in = new Scanner(System.in);

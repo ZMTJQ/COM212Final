@@ -58,19 +58,29 @@ public class CustomerNode implements java.io.Serializable{
 			return null;
 		}
 		else{
-			if(wishList.front().isAvailable() == true){
-				return wishList.front();
+			if(wishList.front()!=null){
+				if(wishList.front().isAvailable() == true){
+					return wishList.front();
+				}
+				else{
+					System.out.println("Movie is unavailable");
+					wishList.dequeue();
+					return accessFrontWishList();
+				}
 			}
 			else{
-				System.out.println("Movie is unavailable");
-				wishList.dequeue();
-				return accessFrontWishList();
+				return null;
 			}
 		}
 	}
 	
 	public MovieNode searchHaveWatchedList(int ID){
-		return haveWatchedList.searchReturn(ID);
+		if(haveWatchedList.searchReturn(ID) == null){
+			return null;
+		}
+		else{
+			return haveWatchedList.searchReturn(ID);
+		}
 	}
 	
 	public void addToWishList(MovieNode movie){
@@ -103,7 +113,17 @@ public class CustomerNode implements java.io.Serializable{
 	}	
 	
 	public void deleteHaveWatchedList(MovieNode movie){
-		haveWatchedList.searchRemove(movie.getID());
+		if(movie!=null){
+			if(haveWatchedList.searchReturn(movie.getID())==null){
+				System.out.println("Movie not in have watched list");
+			}
+			else{
+				haveWatchedList.searchRemove(movie.getID());
+			}
+		}
+		else{
+			System.out.println("Movie not in have watched list");
+		}
 	}	
 	
 	//sets node's name to new name
