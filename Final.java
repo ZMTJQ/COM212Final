@@ -61,10 +61,9 @@ public class Final implements java.io.Serializable{
 	}
 	public static void run(){
 		Scanner in = new Scanner(System.in);
-		try{
 		System.out.print("Enter '1' for Customer login or '2' for Admin login: ");
+		try{
 			int inputU = in.nextInt();
-			try{
 				if(inputU==1){
 					customerLogin();
 					
@@ -76,11 +75,6 @@ public class Final implements java.io.Serializable{
 					System.out.println("TRY AGAIN");
 					run();
 				}
-			}
-			catch(InputMismatchException e){
-				System.out.println("Not an avaliable option.");
-				run();
-			}
 		}
 		catch(InputMismatchException e){
 			System.out.println("Not an available option");
@@ -129,6 +123,7 @@ public class Final implements java.io.Serializable{
 					}
 			}
 			else{
+				System.out.println("Wrong input. Restarting Log-in process...");
 				customerLogin();
 			}
 		}
@@ -308,6 +303,7 @@ public class Final implements java.io.Serializable{
 					}
 					else{
 						System.out.println("Not an avaliable option. Try again: ");
+						customerRun1(customer2);
 					}
 			}
 			else if(inputNum==2){
@@ -356,6 +352,7 @@ public class Final implements java.io.Serializable{
 					}
 					else{
 						System.out.println("Not an avaliable option. Try again: ");
+						customerRun1(customer2);
 					}
 			}	
 			
@@ -371,6 +368,7 @@ public class Final implements java.io.Serializable{
 				}
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
+				customerRun1(customer2);
 			}
 		}
 		catch(InputMismatchException e){
@@ -442,7 +440,8 @@ public class Final implements java.io.Serializable{
 					movieDateDirectory.traverse();
 					System.out.println();
 					System.out.println("'1' to add a movie to your wish list");
-					System.out.println("'2' to return initial screen");
+					System.out.println("'2' to watch a movie");
+					System.out.println("'3' to return initial screen");
 					int yesOrNo1 = in.nextInt();
 					if(yesOrNo1 == 1){
 						System.out.println("Enter movie ID: ");
@@ -460,6 +459,28 @@ public class Final implements java.io.Serializable{
 						
 					}
 					else if(yesOrNo1 == 2){
+						System.out.println("Enter movie ID: ");
+						int movieID2 = in.nextInt();
+						if(movieIDDirectory.lookUp(movieID2)!=null){
+							if(movieIDDirectory.lookUp(movieID2).isAvailable() == true){
+								System.out.println("If we had funding the movie would play now");
+								System.out.println("Movie added to have watched list");
+								customer4.addToHaveWatchedList(movieIDDirectory.lookUp(movieID2));
+								saveCustomerBST(customerDirectory);
+								customerRun3(customer4);
+							}
+							else{
+								System.out.println("Sorry, movie is unavailable.");
+								customerRun3(customer4);
+							}
+						}
+				
+						else{
+							System.out.println("Movie not found");
+							customerRun3(customer4);
+						}
+					}
+					else if(yesOrNo1 == 3){
 						customerScreen(customer4);
 					}
 					
