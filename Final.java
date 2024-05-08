@@ -190,6 +190,16 @@ public class Final implements java.io.Serializable{
 		
 	}
 	
+	public static void makeSureAvailable(CustomerNode customer){
+		if(customer.accessFrontWishList()!=null){
+			if(movieIDDirectory.lookUp(customer.accessFrontWishList().getID()).isAvailable()==false){
+				System.out.println(customer.accessFrontWishList().getName() + " is unavailable");
+				customer.deleteWishList();
+				saveCustomerBST(customerDirectory);
+				makeSureAvailable(customer);
+			}	
+		}
+	}
 	public static void customerRun1(CustomerNode customer2){
 		Scanner in = new Scanner(System.in);
 		System.out.println("Info: ");
@@ -215,6 +225,7 @@ public class Final implements java.io.Serializable{
 				System.out.println("'5' to return to prior screen");
 				int inputNum1 = in.nextInt();
 					if(inputNum1==1){
+						makeSureAvailable(customer2);
 						if(customer2.accessFrontWishList()!=null){
 							System.out.println(customer2.accessFrontWishList().getName());
 							System.out.println("'1' delete first movie in Wish List");
@@ -500,13 +511,15 @@ public class Final implements java.io.Serializable{
 					
 					else{
 						System.out.println("Choose one of the options");
+						customerRun3(customer4);
 					}
 				}
 				else if (next1 == 2){
 					customerScreen(customer4);
 				}
 				else{
-				System.out.println("Choose one of the options");
+					System.out.println("Choose one of the options");
+					customerRun3(customer4);
 				}
 			}
 		catch(InputMismatchException e){
@@ -775,11 +788,11 @@ public class Final implements java.io.Serializable{
 			else if(inputNum==2){
 				movieDateDirectory.search(movieRTDirectory.findMin().getReleaseDate()).setUavailable();
 				movieIDDirectory.lookUp(movieRTDirectory.findMin().getID()).setUavailable();
-				
 				movieRTDirectory.deleteMin();
 				saveMovieHeap(movieRTDirectory);
 				saveMovieBST(movieDateDirectory);
 				saveMovieHash(movieIDDirectory);
+				saveCustomerBST(customerDirectory);
 				run2();
 			}
 			else if(inputNum==3){
