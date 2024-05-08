@@ -223,25 +223,28 @@ public class Final implements java.io.Serializable{
 							if(inputNum12==1){
 								System.out.println("'1' if movie was watched");
 								System.out.println("'2' to watch the movie");
-								System.out.println("'3' if not");
+								System.out.println("'3' just delete it");
 								int inputNums = in.nextInt();
 								if(inputNums==1){
 									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
 									saveCustomerBST(customerDirectory);
-									customerRun1(customer2);	
+									//customerRun1(customer2);	
 								}
 								if(inputNums==2){
 									System.out.println("If we had funding the movie would play now");
+									System.out.println("Movie added to have watched list");
 									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
 									saveCustomerBST(customerDirectory);
-									customerRun1(customer2);	
+									//customerRun1(customer2);
 								}
+						
 								customer2.deleteWishList();
 								saveCustomerBST(customerDirectory);
 								System.out.println("deleted.");
 								customerRun1(customer2);
 							}
-							else if(inputNum12==3){	
+							
+							else if(inputNum12==2){	
 								customerRun1(customer2);
 							}
 						}
@@ -261,9 +264,13 @@ public class Final implements java.io.Serializable{
 								saveCustomerBST(customerDirectory);	
 							}
 							if(inputNum12==2){
+							
+							
 									System.out.println("If we had funding the movie would play now");
 									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
 									saveCustomerBST(customerDirectory);	
+									
+									
 							}
 							customer2.deleteWishList();
 							saveCustomerBST(customerDirectory);
@@ -398,9 +405,16 @@ public class Final implements java.io.Serializable{
 						customerRun2(customer3);
 					}
 					else if(yesOrNo == 2){
-						System.out.println("If we had funding the movie would play now");
-						customer3.addToHaveWatchedList(movieIDDirectory.lookUp(movieID1));
-						customerRun2(customer3);
+						if(movieIDDirectory.lookUp(movieID1).isAvailable()==true){
+							System.out.println("If we had funding the movie would play now");
+							System.out.println("Movie added to have watched list");
+							customer3.addToHaveWatchedList(movieIDDirectory.lookUp(movieID1));
+							customerRun2(customer3);
+						}
+						else{
+							System.out.println("Sorry, this movie is unavailable");
+							customerRun2(customer3);
+						}
 					}
 					else if(yesOrNo == 3){
 						customerScreen(customer3);
@@ -761,6 +775,7 @@ public class Final implements java.io.Serializable{
 			else if(inputNum==2){
 				movieDateDirectory.search(movieRTDirectory.findMin().getReleaseDate()).setUavailable();
 				movieIDDirectory.lookUp(movieRTDirectory.findMin().getID()).setUavailable();
+				
 				movieRTDirectory.deleteMin();
 				saveMovieHeap(movieRTDirectory);
 				saveMovieBST(movieDateDirectory);
