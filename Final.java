@@ -114,8 +114,8 @@ public class Final implements java.io.Serializable{
 				CustomerNode User = customerDirectory.search(inputCCard);
 					try{
 						if(customerDirectory.search(inputCCard)!=null){
-							customerScreen(User);
 							System.out.println("Hello "+User.getName());
+							customerScreen(User);
 						}
 						else{
 							System.out.println("Incorrect credit card.");
@@ -227,9 +227,16 @@ public class Final implements java.io.Serializable{
 							int inputNum12 = in.nextInt();
 							if(inputNum12==1){
 								System.out.println("'1' if movie was watched");
-								System.out.println("'2' if not");
+								System.out.println("'2' to watch the movie");
+								System.out.println("'3' if not");
 								int inputNums = in.nextInt();
 								if(inputNums==1){
+									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
+									saveCustomerBST(customerDirectory);
+									customerRun1(customer2);	
+								}
+								if(inputNums==2){
+									System.out.println("If we had funding the movie would play now");
 									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
 									saveCustomerBST(customerDirectory);
 									customerRun1(customer2);	
@@ -239,7 +246,7 @@ public class Final implements java.io.Serializable{
 								System.out.println("deleted.");
 								customerRun1(customer2);
 							}
-							else if(inputNum12==2){	
+							else if(inputNum12==3){	
 								customerRun1(customer2);
 							}
 						}
@@ -251,11 +258,17 @@ public class Final implements java.io.Serializable{
 					else if(inputNum1==2){
 						if(customer2.accessFrontWishList()!=null){
 							System.out.println("'1' if movie was watched");
-							System.out.println("'2' if not");
+							System.out.println("'2' to watch the movie");
+							System.out.println("'3' if not");
 							int inputNum12 = in.nextInt();
 							if(inputNum12==1){
 								customer2.addToHaveWatchedList(customer2.accessFrontWishList());
 								saveCustomerBST(customerDirectory);	
+							}
+							if(inputNum12==2){
+									System.out.println("If we had funding the movie would play now");
+									customer2.addToHaveWatchedList(customer2.accessFrontWishList());
+									saveCustomerBST(customerDirectory);	
 							}
 							customer2.deleteWishList();
 							saveCustomerBST(customerDirectory);
@@ -377,7 +390,9 @@ public class Final implements java.io.Serializable{
 				int movieID1 = in.nextInt();
 				if(movieIDDirectory.lookUp(movieID1)!=null){
 					System.out.println(movieIDDirectory.lookUp(movieID1).getName());
-					System.out.println("'1' to add this to your wish list or '2' to return initial screen");
+					System.out.println("'1' to add this to your wish list"); 
+					System.out.println("'2' to watch the movie");
+					System.out.println("'3' to return initial screen");
 					int yesOrNo = in.nextInt();
 					if(yesOrNo == 1){
 						customer3.addToWishList(movieIDDirectory.lookUp(movieID1));
@@ -385,6 +400,11 @@ public class Final implements java.io.Serializable{
 						customerRun2(customer3);
 					}
 					else if(yesOrNo == 2){
+						System.out.println("If we had funding the movie would play now");
+						customer3.addToHaveWatchedList(movieIDDirectory.lookUp(movieID1));
+						customerRun2(customer3);
+					}
+					else if(yesOrNo == 3){
 						customerScreen(customer3);
 					}
 					
@@ -395,7 +415,7 @@ public class Final implements java.io.Serializable{
 				}
 				else{
 					System.out.println("Movie not found");
-					welcomeScreen();
+					customerScreen(customer3);
 				}
 			}
 			else if(next==2){
@@ -777,15 +797,22 @@ public class Final implements java.io.Serializable{
 			else if(inputNum==2){
 				System.out.println("Enter release date: ");
 				int RD= in.nextInt();
-				if(movieDateDirectory.search(RD).isAvailable() == false){
-					movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
-					movieDateDirectory.delete(movieDateDirectory.search(RD));
-					saveMovieBST(movieDateDirectory);
-					saveMovieHash(movieIDDirectory);
+				if(movieDateDirectory.search(RD)!=null){
+					System.out.println("Delting: " + movieDateDirectory.search(RD).getName());
+					if(movieDateDirectory.search(RD).isAvailable() == false){
+						movieIDDirectory.delete(movieDateDirectory.search(RD).getID());
+						movieDateDirectory.delete(movieDateDirectory.search(RD));
+						saveMovieBST(movieDateDirectory);
+						saveMovieHash(movieIDDirectory);
+					}
+					else{
+						System.out.println("You can't delete an available movie!");
+						System.out.println("Deletion failed.");
+					}
 				}
 				else{
-					System.out.println("You can't delete an available movie!");
-					}
+					System.out.println("Date entered is not in database");
+				}
 				run3();
 			}
 			else if(inputNum==3){
@@ -816,7 +843,7 @@ public class Final implements java.io.Serializable{
 			}
 		}
 		catch(InputMismatchException e){
-			System.out.println("Choose one of the options");
+			System.out.println("Input type is not an ID");
 				run4();	
 				}
 		}
@@ -1045,6 +1072,5 @@ public class Final implements java.io.Serializable{
         	}
         return movie;
     	}
-    	
-    	    	
+        	
 }
