@@ -81,6 +81,63 @@ public class Final implements java.io.Serializable{
 			run();
 		}
 	}
+	
+	public static boolean isFour(int i){
+		if((i%10000) == i){ 
+			if((i/1000) >= 1){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public static int enterCC(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter 4 digit credit card number: ");
+		int inputCC = in.nextInt();
+		if(isFour(inputCC)==true){
+			return inputCC;
+		}
+		else{
+			System.out.println("Not 4 digits.");
+			return enterCC();
+			}
+	}
+	
+	public static boolean isEight(int i){
+		if((i%100000000) == i){ 
+			if((i/10000000) >= 1){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public static int enterDate(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter 8 digit date YYYYMMDD: ");
+		int inputDate = in.nextInt();
+		if(isEight(inputDate)==true){
+			return inputDate;
+		}
+		else{
+			System.out.println("Not 8 digits.");
+			return enterDate();
+			}
+	}
+	
+	
+	
 	public static void customerLogin(){
 		Scanner in = new Scanner(System.in);
 		System.out.println("'1' to create an account or '2' for customer login");
@@ -90,11 +147,10 @@ public class Final implements java.io.Serializable{
 				System.out.println("Create an Account:");
 				System.out.println("Enter username: ");	
 				String inputName = in.next();
-				System.out.println("Enter 4 digit credit card number: ");
-				int inputCC= in.nextInt();
+				int cc = enterCC();
 				System.out.println("Enter email address: ");	
 				String inputEmail = in.next();
-				CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
+				CustomerNode customer = new CustomerNode(inputName, cc, inputEmail);
 				customerDirectory.insert(customer);
 				saveCustomerBST(customerDirectory);
 				System.out.println("Hello "+customer.getName());
@@ -589,26 +645,23 @@ public class Final implements java.io.Serializable{
 			if(inputNum==1){
 				System.out.println("Enter name: ");	
 				String inputName = in.next();
-				System.out.println("Enter 4 digit credit card number: ");
-				int inputCC= in.nextInt();
+				int creditC = enterCC();
 				System.out.println("Enter email address: ");	
 				String inputEmail = in.next();
-				CustomerNode customer = new CustomerNode(inputName, inputCC, inputEmail);
+				CustomerNode customer = new CustomerNode(inputName, creditC, inputEmail);
 				customerDirectory.insert(customer);
 				saveCustomerBST(customerDirectory);
 				System.out.println(customer.getName()+" has been added.");
 				run1();
 			}
 			else if(inputNum==2){
-				System.out.println("Enter 4 digit credit card number: ");
-				int inputCC= in.nextInt();		
+				int inputCC= enterCC();		
 				customerDirectory.delete(customerDirectory.search(inputCC));
 				saveCustomerBST(customerDirectory);
 				run1();
 			}
 			else if(inputNum==3){
-				System.out.println("Enter 4 digit credit card number: ");
-				int inputCC= in.nextInt();	
+				int inputCC= enterCC();	
 				if(customerDirectory.search(inputCC)!=null){
 					CustomerNode c = customerDirectory.search(inputCC);
 					System.out.println(c.getName() + " " + c.getCreditCard() + " " + " "+ c.getEmail());	
@@ -723,9 +776,8 @@ public class Final implements java.io.Serializable{
 							saveCustomerBST(customerDirectory);
 							run1();
 						}
-						else if(inputNum4==2){
-							System.out.println("Enter credit card: ");	
-							int inputCC1 = in.nextInt();
+						else if(inputNum4==2){	
+							int inputCC1 = enterCC();
 							c.setCreditCard(inputCC1);
 							saveCustomerBST(customerDirectory);
 							run1();
@@ -799,10 +851,7 @@ public class Final implements java.io.Serializable{
 			else if(inputNum==3){
 				System.out.println("Enter name: ");	
 				String inputName = in.next();
-				System.out.println("Enter release date ");
-				int inputRD= in.nextInt();
-				//System.out.println("Enter 5 digit id code ");	 //use attomatic id code
-				//int inputID = in.nextInt();
+				int inputRD= enterDate();
 				System.out.println("Enter rotten tomato score");
 				int inputRT= in.nextInt();
 				
