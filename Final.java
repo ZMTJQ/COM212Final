@@ -109,6 +109,28 @@ public class Final implements java.io.Serializable{
 			}
 	}
 	
+	public static boolean isHundred(int i){
+		if((i%101) == i){ 
+			return true;
+			}
+		else{
+			return false;
+		}
+	}
+	
+	public static int enterRT(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter rotten tomato score (0-100): ");
+		int inputRT = in.nextInt();
+		if(isHundred(inputRT)==true){
+			return inputRT;
+		}
+		else{
+			System.out.println("Not 0-100.");
+			return enterRT();
+			}
+	}
+	
 	public static boolean isEight(int i){
 		if((i%100000000) == i){ 
 			if((i/10000000) >= 1){
@@ -852,8 +874,7 @@ public class Final implements java.io.Serializable{
 				System.out.println("Enter name: ");	
 				String inputName = in.next();
 				int inputRD= enterDate();
-				System.out.println("Enter rotten tomato score");
-				int inputRT= in.nextInt();
+				int inputRT= enterRT();
 				
 				
 				MovieNode movie = new MovieNode(IDCounter, inputName, inputRD, inputRT);
