@@ -248,6 +248,7 @@ public class Final implements java.io.Serializable{
 				}
 				else{
 					System.out.println("Incorrect ID");
+					adminLogin();
 				}
 			}
 		}
@@ -282,6 +283,7 @@ public class Final implements java.io.Serializable{
 			}
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
+				customerScreen(customer1);
 			}
 		}
 		catch(InputMismatchException e){
@@ -547,6 +549,7 @@ public class Final implements java.io.Serializable{
 					}
 					else{
 						System.out.println("Choose one of the options");
+						customerScreen(customer3);
 					}
 				}
 				else{
@@ -559,6 +562,8 @@ public class Final implements java.io.Serializable{
 			}
 			else{
 				System.out.println("Choose one of the options");
+				customerScreen(customer3);
+				
 			}
 		}
 		catch(InputMismatchException e){
@@ -674,6 +679,7 @@ public class Final implements java.io.Serializable{
 				}
 				else{
 					System.out.println("Not an avaliable option. Try again: ");
+					welcomeScreen();
 				}
 			}
 		}
@@ -765,9 +771,8 @@ public class Final implements java.io.Serializable{
 							int inputID= in.nextInt();
 							MovieNode node = movieIDDirectory.lookUp(inputID);
 							if(node!=null){ 
-								System.out.println(movieIDDirectory.lookUp(inputID).getName());	
+								System.out.println("Adding: " +movieIDDirectory.lookUp(inputID).getName());	
 								c.addToWishList(movieIDDirectory.lookUp(inputID));
-								System.out.println("Movie Added");
 							}
 							else{
 								System.out.println("Movie doesn't exist");
@@ -782,6 +787,7 @@ public class Final implements java.io.Serializable{
 						}
 						else{
 							System.out.println("Not an avaliable option. Try again: ");
+							run1();
 						}
 					}
 					else if(inputNum1==2){
@@ -814,6 +820,7 @@ public class Final implements java.io.Serializable{
 						}
 						else{
 							System.out.println("Not an avaliable option. Try again: ");
+							run1();
 						}
 					}
 					else if(inputNum1==3){
@@ -852,6 +859,7 @@ public class Final implements java.io.Serializable{
 					}
 					else{
 						System.out.println("Not an avaliable option. Try again: ");
+						run1();
 					}
 				}
 				else{
@@ -868,6 +876,7 @@ public class Final implements java.io.Serializable{
 			}
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
+				run1();
 			}
 		}
 	
@@ -930,6 +939,7 @@ public class Final implements java.io.Serializable{
 			
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
+				run2();
 			}
 		}
 		catch(InputMismatchException e){
@@ -978,6 +988,7 @@ public class Final implements java.io.Serializable{
 			}
 			else{
 				System.out.println("Not an avaliable option. Try again: ");
+				run3();
 			}
 		}
 		catch(InputMismatchException e){
@@ -1063,39 +1074,40 @@ public class Final implements java.io.Serializable{
             		file.close();
         	} 
         	catch (Exception e) {
-            	movie = new MovieBST();
-         	
+            		movie = new MovieBST();
+         		//If you want to fill the system w 255 movies uncomment this loop
+         		/*
 		    	int n = 10000000;
 		    	int ID = 20000;
 	    		for(int i = 0; i<255; i++){
 				MovieNode temp = new MovieNode(ID+i,"hey", n+i, i%100);
 				movie.insert(temp);
-			}
+			}*/
 		
-		/*
-            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
-            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
-            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
-            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
-            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
-            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
-            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
-            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
-            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
-            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
-            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
-            	movie.insert(movie1);
-            	movie.insert(movie2);
-            	movie.insert(movie3);
-            	movie.insert(movie4);
-            	movie.insert(movie5);
-            	movie.insert(movie6);
-            	movie.insert(movie7);
-            	movie.insert(movie8);
-            	movie.insert(movie9);
-            	movie.insert(movie10);
-            	movie.insert(movie11);
-            	*/
+		///*
+		    	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+		    	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+		    	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+		    	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+		    	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+		    	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+		    	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+		    	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+		    	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+		    	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+		    	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+		    	movie.insert(movie1);
+		    	movie.insert(movie2);
+		    	movie.insert(movie3);
+		    	movie.insert(movie4);
+		    	movie.insert(movie5);
+		    	movie.insert(movie6);
+		    	movie.insert(movie7);
+		    	movie.insert(movie8);
+		    	movie.insert(movie9);
+		    	movie.insert(movie10);
+		    	movie.insert(movie11);
+		    	//*/
         	}
         	return movie;
     	}
@@ -1126,36 +1138,38 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
 		    	movie = new MovieHeap();
+		    	//If you want to fill the system w 255 movies uncomment this loop
+		    	/*
 		    	int n = 10000000;
 		    	int ID = 20000;
 	    		for(int i = 0; i<255; i++){
 				MovieNode temp = new MovieNode(ID+i,"hey", n+i, i%100);
 				movie.insert(temp);
-			}
-        	/*
-            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
-            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
-            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
-            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
-            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
-            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
-            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
-            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
-            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
-            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
-            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
-            	movie.insert(movie1);
-            	movie.insert(movie2);
-            	movie.insert(movie3);
-            	movie.insert(movie4);
-            	movie.insert(movie5);
-            	movie.insert(movie6);
-            	movie.insert(movie7);
-            	movie.insert(movie8);
-            	movie.insert(movie9);
-            	movie.insert(movie10);
-            	movie.insert(movie11);
-            	*/
+			}*/
+        	///*
+		    	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+		    	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+		    	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+		    	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+		    	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+		    	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+		    	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+		    	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+		    	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+		    	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+		    	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+		    	movie.insert(movie1);
+		    	movie.insert(movie2);
+		    	movie.insert(movie3);
+		    	movie.insert(movie4);
+		    	movie.insert(movie5);
+		    	movie.insert(movie6);
+		    	movie.insert(movie7);
+		    	movie.insert(movie8);
+		    	movie.insert(movie9);
+		    	movie.insert(movie10);
+		    	movie.insert(movie11);
+		    	//*/
         	}
         	return movie;
     	}
@@ -1185,38 +1199,39 @@ public class Final implements java.io.Serializable{
             		file.close();
         	} 
         	catch (Exception e) {
-            	movie = new MovieHash();
-            	
+            		movie = new MovieHash();
+            		//If you want to fill the system w 255 movies uncomment this loop
+            		/*
 		    	int n = 10000000;
 		    	int ID = 20000;
 	    		for(int i = 0; i<255; i++){
 				MovieNode temp = new MovieNode(ID+i,"hey", n+i, i%100);
 				movie.insert(temp);
-			}
-            	/*
-            	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
-            	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
-            	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
-            	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
-            	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
-            	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
-            	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
-            	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
-            	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
-            	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
-            	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
-            	movie.insert(movie1);
-            	movie.insert(movie2);
-            	movie.insert(movie3);
-            	movie.insert(movie4);
-            	movie.insert(movie5);
-            	movie.insert(movie6);
-            	movie.insert(movie7);
-            	movie.insert(movie8);
-            	movie.insert(movie9);
-            	movie.insert(movie10);
-            	movie.insert(movie11);
-            	*/
+			}*/
+		    	///*
+		    	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
+		    	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
+		    	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
+		    	MovieNode movie4 = new MovieNode(10004, "2_Fast_2_Furious:_Tokyo_Drift",20030606,50);
+		    	MovieNode movie5 = new MovieNode(10005, "Fast_&_Furious",20090403,28);
+		    	MovieNode movie6 = new MovieNode(10006, "Fast_Five",20110429,78);
+		    	MovieNode movie7 = new MovieNode(10007, "Fast_&_Furious_6",20130524,71);
+		    	MovieNode movie8 = new MovieNode(10008, "Furious_7",20150403,81);
+		    	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
+		    	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
+		    	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+		    	movie.insert(movie1);
+		    	movie.insert(movie2);
+		    	movie.insert(movie3);
+		    	movie.insert(movie4);
+		    	movie.insert(movie5);
+		    	movie.insert(movie6);
+		    	movie.insert(movie7);
+		    	movie.insert(movie8);
+		    	movie.insert(movie9);
+		    	movie.insert(movie10);
+		    	movie.insert(movie11);
+		    	//*/
         	}
         	return movie;
     	}
