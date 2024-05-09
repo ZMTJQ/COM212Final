@@ -63,7 +63,7 @@ public class CustomerNode implements java.io.Serializable{
 					return wishList.front();
 				}
 				else{
-					System.out.println("Movie is unavailable");
+					System.out.println(wishList.front().getName() +" is unavailable. Loading next movie");
 					wishList.dequeue();
 					return accessFrontWishList();
 				}
@@ -90,14 +90,18 @@ public class CustomerNode implements java.io.Serializable{
 				wishList.enqueue(movie);
 			}
 			else{
-				wishList.enqueue(movie);
+				if(wishList.getN()<21){
+					wishList.enqueue(movie);
+				}
+				else{
+					System.out.println("Wish List is Full");
+				}
 			}
 		}
 		else{
-				System.out.println("Can't add movie");
+			System.out.println("Can't add movie");
 			}
-		}
-	
+	}
 	public void addToHaveWatchedList(MovieNode movie){
 		haveWatchedList.insert(movie);
 	}

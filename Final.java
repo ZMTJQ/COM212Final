@@ -197,7 +197,8 @@ public class Final implements java.io.Serializable{
 				customer.deleteWishList();
 				saveCustomerBST(customerDirectory);
 				makeSureAvailable(customer);
-			}	
+			}
+			saveCustomerBST(customerDirectory);	
 		}
 	}
 	public static void customerRun1(CustomerNode customer2){
@@ -226,6 +227,7 @@ public class Final implements java.io.Serializable{
 				int inputNum1 = in.nextInt();
 					if(inputNum1==1){
 						makeSureAvailable(customer2);
+						saveCustomerBST(customerDirectory);
 						if(customer2.accessFrontWishList()!=null){
 							System.out.println(customer2.accessFrontWishList().getName());
 							System.out.println("'1' delete first movie in Wish List");
@@ -300,10 +302,9 @@ public class Final implements java.io.Serializable{
 						int inputID1= in.nextInt();
 						MovieNode node = movieIDDirectory.lookUp(inputID1);
 						if(node!=null){ 
-							System.out.println(movieIDDirectory.lookUp(inputID1).getName());	
+							System.out.println("Adding: " + movieIDDirectory.lookUp(inputID1).getName());	
 							customer2.addToWishList(movieIDDirectory.lookUp(inputID1));
 							saveCustomerBST(customerDirectory);
-							System.out.println("Movie Added");
 						}
 						else{
 							System.out.println("Movie doesn't exist");
@@ -960,6 +961,16 @@ public class Final implements java.io.Serializable{
             	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
             	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
             	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	MovieNode movie12 = new MovieNode(10012, "Test_A",19760525,1);
+            	MovieNode movie13 = new MovieNode(10013, "Test_B",19810521,2);
+            	MovieNode movie14 = new MovieNode(10014, "Test_C",20020622,3);
+            	MovieNode movie15 = new MovieNode(10015, "Test_D",20040606,4);
+            	MovieNode movie16 = new MovieNode(10016, "Test_E",20100403,5);
+            	MovieNode movie17 = new MovieNode(10017, "Test_F",20120429,6);
+            	MovieNode movie18 = new MovieNode(10018, "Test_G",20170524,7);
+            	MovieNode movie19 = new MovieNode(10019, "Test_H",20180403,8);
+            	MovieNode movie20 = new MovieNode(10020, "Test_I",20200414,9);
+            	MovieNode movie21 = new MovieNode(10021, "Test_J",20210802,10);
             	
             	movie.insert(movie1);
             	movie.insert(movie2);
@@ -972,6 +983,16 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie9);
             	movie.insert(movie10);
             	movie.insert(movie11);
+            	movie.insert(movie12);
+            	movie.insert(movie13);
+            	movie.insert(movie14);
+            	movie.insert(movie15);
+            	movie.insert(movie16);
+            	movie.insert(movie17);
+            	movie.insert(movie18);
+            	movie.insert(movie19);
+            	movie.insert(movie20);
+            	movie.insert(movie21);
         	}
         return movie;
     	}
@@ -1012,6 +1033,16 @@ public class Final implements java.io.Serializable{
             	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
             	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
             	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	MovieNode movie12 = new MovieNode(10012, "Test_A",19760525,1);
+            	MovieNode movie13 = new MovieNode(10013, "Test_B",19810521,2);
+            	MovieNode movie14 = new MovieNode(10014, "Test_C",20020622,3);
+            	MovieNode movie15 = new MovieNode(10015, "Test_D",20040606,4);
+            	MovieNode movie16 = new MovieNode(10016, "Test_E",20100403,5);
+            	MovieNode movie17 = new MovieNode(10017, "Test_F",20120429,6);
+            	MovieNode movie18 = new MovieNode(10018, "Test_G",20170524,7);
+            	MovieNode movie19 = new MovieNode(10019, "Test_H",20180403,8);
+            	MovieNode movie20 = new MovieNode(10020, "Test_I",20200414,9);
+            	MovieNode movie21 = new MovieNode(10021, "Test_J",20210802,10);
             	
             	movie.insert(movie1);
             	movie.insert(movie2);
@@ -1024,6 +1055,17 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie9);
             	movie.insert(movie10);
             	movie.insert(movie11);
+            	movie.insert(movie12);
+            	movie.insert(movie13);
+            	movie.insert(movie14);
+            	movie.insert(movie15);
+            	movie.insert(movie16);
+            	movie.insert(movie17);
+            	movie.insert(movie18);
+            	movie.insert(movie19);
+            	movie.insert(movie20);
+            	movie.insert(movie21);
+            	
         	}
         return movie;
     	}
@@ -1064,6 +1106,16 @@ public class Final implements java.io.Serializable{
             	MovieNode movie9 = new MovieNode(10009, "The_Fate_Of_The_Furious",20170414,67);
             	MovieNode movie10 = new MovieNode(10010, "Hobbs_&_Shaw",20190802,66);
             	MovieNode movie11 = new MovieNode(10011, "F9_The_Fast_Saga",20210625,59);
+            	MovieNode movie12 = new MovieNode(10012, "Test_A",19760525,1);
+            	MovieNode movie13 = new MovieNode(10013, "Test_B",19810521,2);
+            	MovieNode movie14 = new MovieNode(10014, "Test_C",20020622,3);
+            	MovieNode movie15 = new MovieNode(10015, "Test_D",20040606,4);
+            	MovieNode movie16 = new MovieNode(10016, "Test_E",20100403,5);
+            	MovieNode movie17 = new MovieNode(10017, "Test_F",20120429,6);
+            	MovieNode movie18 = new MovieNode(10018, "Test_G",20170524,7);
+            	MovieNode movie19 = new MovieNode(10019, "Test_H",20180403,8);
+            	MovieNode movie20 = new MovieNode(10020, "Test_I",20200414,9);
+            	MovieNode movie21 = new MovieNode(10021, "Test_J",20210802,10);
             	
             	movie.insert(movie1);
             	movie.insert(movie2);
@@ -1076,6 +1128,16 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie9);
             	movie.insert(movie10);
             	movie.insert(movie11);
+            	movie.insert(movie12);
+            	movie.insert(movie13);
+            	movie.insert(movie14);
+            	movie.insert(movie15);
+            	movie.insert(movie16);
+            	movie.insert(movie17);
+            	movie.insert(movie18);
+            	movie.insert(movie19);
+            	movie.insert(movie20);
+            	movie.insert(movie21);
         	}
         return movie;
     	}
