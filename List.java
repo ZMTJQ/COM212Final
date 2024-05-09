@@ -1,9 +1,7 @@
-//Zach Quitkin, 3/29/2024
-//Program & class List (Linked List)
-//This class creates/defines a linked list of nodes
-//It has a head pointer and int n (counts # of nodes) as instance variables
-//A user can perform the following methods on a linked list:
-//length, isEmptyList, searchReturn, searchRemove, insert and printList
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//Linked List class used for Have-Watched List in CustomerNode
+//COM212 Final Project
 
 import java.io.*;
 public class List implements java.io.Serializable{

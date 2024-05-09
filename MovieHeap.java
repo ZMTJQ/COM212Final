@@ -1,3 +1,10 @@
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//Heap class used to store movies that admins edit
+//it holds movies (MovieNodes) and is how admins
+//make movies available(adding them) or unavailable(deleting them)
+//COM212 Final Project
+
 import java.io.*;
 public class MovieHeap implements java.io.Serializable{
 	
@@ -30,6 +37,15 @@ public class MovieHeap implements java.io.Serializable{
 		}
 		else{
 			return h[0];
+		}
+	}
+	
+	public boolean isFull(){
+		if (n==255){
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 	

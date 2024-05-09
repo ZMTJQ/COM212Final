@@ -1,3 +1,11 @@
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//Version of BST class used to store movies by date that admins edit
+//and customers can view
+//it holds movies (MovieNodes) and is how admins
+//delete movies from the directory for good.
+//COM212 Final Project
+
 import java.io.*;
 public class MovieBST implements java.io.Serializable{
 	
@@ -13,9 +21,7 @@ public class MovieBST implements java.io.Serializable{
     public MovieNode search(int key) {
         return search2(root, key);  //calls search2 with root node to search for
     }
-    
-    
-    
+   
     private MovieNode search2(MovieNode node, int key) {  //to search for a key in BST (recursive method)
         if (node == null || node.getReleaseDate() == key) {  // checks if current node is null or matches target key
             return node;
@@ -27,33 +33,36 @@ public class MovieBST implements java.io.Serializable{
         return search2(node.getRight(), key);  //recursively calls right child node and target key
     }
    
-   
-   
-    public void insert(MovieNode node) {  //calls insert2(private) to insert the node in BST
-        root = insert2(root, node);
-    }
-   
-   
-   
-    private MovieNode insert2(MovieNode root, MovieNode node) {
-        if (root == null) { //if its null, assigns new node to current position
-            root = node;  //inserts new node at current position
-            return root;
-        }
-        
-        
-        
-        if (node.getReleaseDate() < root.getReleaseDate()) {
-    
-        
-            root.setLeft(insert2(root.getLeft(), node)); //if node is less than subtree, left
-        } else if (node.getReleaseDate() > root.getReleaseDate()) {
-            root.setRight(insert2(root.getRight(), node));// if its more tham subtree, right
-        }
-        return root;
-    }
-    
-    
+    //inserts node using recursion
+	public void insert(MovieNode x){
+		if (root == null){
+			root = x;
+		}
+		else{
+			insert2(root,x);
+		}
+	}
+	
+	//helper function for insert: finds appropriate spot
+	private void insert2(MovieNode t, MovieNode p){
+		if (p.getReleaseDate() < t.getReleaseDate()){
+			if (t.getLeft() == null){
+				t.setLeft(p);
+			}
+			else{
+				insert2(t.getLeft(), p);
+			}
+		}
+		else{
+			if (t.getRight() == null){
+				t.setRight(p);
+			}
+			else{ 
+				insert2(t.getRight(), p);
+				}
+			}				
+	}
+ 
     
     public void delete(MovieNode node) {
         root = delete2(root, node.getReleaseDate());  //deletes the node from BST
@@ -102,7 +111,8 @@ public class MovieBST implements java.io.Serializable{
     private void traverse2(MovieNode node) { //traverse with private recursion
         if (node != null) {		//loops until its null
             traverse2(node.getLeft());  //calls with left child node
-            System.out.print("[" + node.getName() + "; Date: " + node.getReleaseDate() + "; ID: " + node.getID() +"; Status: ");
+            System.out.print("[" + node.getName() + "; Date: " + node.getReleaseDate() + "; ID: " + node.getID());
+            System.out.print("; Rotten Tomatoes: " + node.getRottenTomatoes() + "; Status: ");
             if(node.isAvailable()==true){
         	    System.out.print("Available ]");
             }

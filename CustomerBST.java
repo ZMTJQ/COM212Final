@@ -1,3 +1,12 @@
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//Version of BST class used to store customers by credit card
+//Admins can access this and the individual customers within it
+//when new customers create accounts, they're added to this
+//returning customers log in data (credit card) is stored here
+//it holds customers (CustomerNodes) 
+//COM212 Final Project
+
 import java.io.*;
 public class CustomerBST implements java.io.Serializable{
 	

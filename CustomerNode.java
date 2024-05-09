@@ -1,7 +1,9 @@
-//Zach Quitkin, 3/7/2024
-//Program/class Node
-//This class defines a node object discussed in class. 
-//It has a name, SSN, and next pointer as instance variables
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//A version of node class used to create/instantiate customers
+//name, credit card, email, wishlist, have watched, left and right
+//COM212 Final Project
+
 import java.io.*;
 public class CustomerNode implements java.io.Serializable{
 	

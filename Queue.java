@@ -1,9 +1,8 @@
-//Zach Quitkin 3/30
-//Program & class QueueA
-//This class implements a queue using an array
-//It has an array of length 100, int front, and int n (counter) as instance variables
-//A user can perform the following methods on a queue
-//front, dequeue, enqueue, isEmpty
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//Queue class used for Wish List in CustomerNode
+//COM212 Final Project
+
 import java.io.*;
 public class Queue implements java.io.Serializable{
 	

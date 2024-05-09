@@ -1,10 +1,17 @@
+//Zach Quitkin, Evan Lyons, Arjun Premkumar
+//5/9/2024
+//Version of Hash class used to store movies by ID
+//which is how customers can access individual movies
+//it holds movies (MovieNodes)
+//COM212 Final Project
+
 import java.io.*;
 public class MovieHash implements java.io.Serializable{
-	private MovieNode[] h = new MovieNode[251];
+	private MovieNode[] h = new MovieNode[257];
 	private int n = 0;
 	
 	public int hash(int k){
-		return k%251;
+		return k%257;
 	}
 	public boolean empty(){
 		if(n==0){
@@ -20,12 +27,11 @@ public class MovieHash implements java.io.Serializable{
 		if(h[temp]==null){
 			h[temp]=x;
 			n++;
-			
 		}
 		else{
 			MovieNode head = h[temp];
 	 		h[temp] = x;
-	 		h[temp].setRight(head);
+	 		h[temp].setNext(head);
 	 		n++;
 	 	}
 	}
@@ -35,44 +41,37 @@ public class MovieHash implements java.io.Serializable{
 		MovieNode temp = h[num];
 		if(temp!=null){
 			if(temp.getID()==k){
-				h[num] = temp.getRight();
+				h[num] = temp.getNext();
 				n--;
-		
 			}
-		
 			else{
-				while(temp.getRight()!=null){
-					if(k==temp.getRight().getID()){
-						MovieNode temp2 = temp.getRight();
-						temp.setRight(temp2.getRight());
-						temp2.setRight(null);
+				while(temp.getNext()!=null){
+					if(k==temp.getNext().getID()){
+						MovieNode temp2 = temp.getNext();
+						temp.setNext(temp2.getNext());
+						temp2.setNext(null);
 						n--;
 					}
 					else{
-						temp = temp.getRight();
+						temp = temp.getNext();
 					}
-			
 				}
-		
 			}
-		
 		}
 	}
 	
 	public void print(){
-	System.out.println("Movies: "+n);
-	for(int i = 0; i<251; i++){
-		System.out.print(i+": ");
-		MovieNode temp = h[i];
-		while(temp!=null){
-			System.out.print(temp.getID()+": ");
-			temp = temp.getRight();
-			
+		System.out.println("Movies: "+n);
+		for(int i = 0; i<257; i++){
+			System.out.print(i+": ");
+			MovieNode temp = h[i];
+			while(temp!=null){
+				System.out.print(temp.getID()+": ");
+				temp = temp.getNext();
+				
+			}
+				System.out.println(temp);
 		}
-			System.out.println(temp);
-		
-	}
-	
 	}
 	
 	public MovieNode lookUp(int k){
@@ -84,12 +83,10 @@ public class MovieHash implements java.io.Serializable{
 				return temp;
 			}
 			else{
-				temp = temp.getRight();
+				temp = temp.getNext();
 			}
 		}
 		return null;
-		
 	}
-	
 	
 }
