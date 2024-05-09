@@ -4,8 +4,8 @@
 //It has an array of length 100, int front, and int n (counter) as instance variables
 //A user can perform the following methods on a queue
 //front, dequeue, enqueue, isEmpty
-
-public class Queue {
+import java.io.*;
+public class Queue implements java.io.Serializable{
 	
 	private MovieNode[] q= new MovieNode[20];
 	private int front = 0;
@@ -25,6 +25,10 @@ public class Queue {
 		}
 	}
 	
+	public int getN(){
+		return n;
+	}
+	
 	//removes and returns node at the front of the queue
 	public MovieNode dequeue(){
 		int temp = front;
@@ -35,9 +39,14 @@ public class Queue {
 	
 	//adds node to end of the queue
 	public void enqueue(MovieNode x){
-		int tail = (front + n)%20;
-		q[tail] = x;
-		n = n+1;
+		if(n<20){
+			int tail = (front + n)%20;
+			q[tail] = x;
+			n = n+1;
+		}
+		else{
+			System.out.println("Wish List is Full");
+		}
 	}
 	
 	//returns true if queue is empty
@@ -53,9 +62,9 @@ public class Queue {
 	//prints contents of the queue in order 1st-last
 	public void printQueue() {
 		int tail = (front + n) % 20;
-		System.out.println(front);
-		System.out.println(tail);
-		if (front <= tail)
+		//System.out.println(front);
+		//System.out.println(tail);
+		if (front < tail)
 			for(int i = front; i < tail; i++) 
 			System.out.println(q[i].getName());
 		else {

@@ -1,5 +1,5 @@
-
-public class MovieHash{
+import java.io.*;
+public class MovieHash implements java.io.Serializable{
 	private MovieNode[] h = new MovieNode[251];
 	private int n = 0;
 	

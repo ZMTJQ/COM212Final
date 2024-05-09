@@ -1,4 +1,5 @@
-public class MovieBST {
+import java.io.*;
+public class MovieBST implements java.io.Serializable{
 	
     private MovieNode root;
 	
@@ -101,7 +102,14 @@ public class MovieBST {
     private void traverse2(MovieNode node) { //traverse with private recursion
         if (node != null) {		//loops until its null
             traverse2(node.getLeft());  //calls with left child node
-            System.out.print(node.getReleaseDate() + " ");
+            System.out.print("[" + node.getName() + "; Date: " + node.getReleaseDate() + "; ID: " + node.getID() +"; Status: ");
+            if(node.isAvailable()==true){
+        	    System.out.print("Available ]");
+            }
+            else{
+            	    System.out.print("Unavailable ]");
+            }
+            System.out.println();
             traverse2(node.getRight()); //calls with right child node
         }
     }

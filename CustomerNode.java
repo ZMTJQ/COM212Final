@@ -2,8 +2,8 @@
 //Program/class Node
 //This class defines a node object discussed in class. 
 //It has a name, SSN, and next pointer as instance variables
-
-public class CustomerNode{
+import java.io.*;
+public class CustomerNode implements java.io.Serializable{
 	
 	private String name;
 	private int creditCard;
@@ -17,8 +17,8 @@ public class CustomerNode{
 		name = name0;
 		creditCard = creditCard0%10000;
 		email = email0;
-		wishList = null;
-		haveWatchedList = null;
+		Queue wishList = new Queue();
+		haveWatchedList = new List();
 		left = null;
 		right = null;
 	}
@@ -39,7 +39,13 @@ public class CustomerNode{
 	}
 	
 	public void printWishList(){
-		wishList.printQueue();
+		if(wishList==null){
+			wishList = new Queue();
+			System.out.println("No movies in Wish List");
+		}
+		else{
+			wishList.printQueue();
+		}
 	}
 	
 	public void printHaveWatchedList(){
@@ -47,34 +53,81 @@ public class CustomerNode{
 	}
 	
 	public MovieNode accessFrontWishList(){
-		if(wishList.front().isAvailable() == true){
-			return wishList.front();
+		if(wishList ==null){
+			wishList = new Queue();
+			return null;
 		}
 		else{
-			System.out.println("Movie is unavailable");
-			wishList.dequeue();
-			return accessFrontWishList();
+			if(wishList.front()!=null){
+				if(wishList.front().isAvailable() == true){
+					return wishList.front();
+				}
+				else{
+					System.out.println(wishList.front().getName() +" is unavailable. Loading next movie");
+					wishList.dequeue();
+					return accessFrontWishList();
+				}
+			}
+			else{
+				return null;
+			}
 		}
 	}
 	
 	public MovieNode searchHaveWatchedList(int ID){
-		return haveWatchedList.searchReturn(ID);
+		if(haveWatchedList.searchReturn(ID) == null){
+			return null;
+		}
+		else{
+			return haveWatchedList.searchReturn(ID);
+		}
 	}
 	
 	public void addToWishList(MovieNode movie){
-		wishList.enqueue(movie);
+		if(movie!=null){
+			if(wishList ==null){
+				wishList = new Queue();
+				wishList.enqueue(movie);
+			}
+			else{
+				if(wishList.getN()<21){
+					wishList.enqueue(movie);
+				}
+				else{
+					System.out.println("Wish List is Full");
+				}
+			}
+		}
+		else{
+			System.out.println("Can't add movie");
+			}
 	}
-	
 	public void addToHaveWatchedList(MovieNode movie){
 		haveWatchedList.insert(movie);
 	}
 	
 	public void deleteWishList(){
-		wishList.dequeue();
+		if(wishList==null){
+			wishList = new Queue();
+			System.out.println("Wish List is empty");
+		}
+		else{
+			wishList.dequeue();
+		}
 	}	
 	
 	public void deleteHaveWatchedList(MovieNode movie){
-		haveWatchedList.searchRemove(movie.getID());
+		if(movie!=null){
+			if(haveWatchedList.searchReturn(movie.getID())==null){
+				System.out.println("Movie not in have watched list");
+			}
+			else{
+				haveWatchedList.searchRemove(movie.getID());
+			}
+		}
+		else{
+			System.out.println("Movie not in have watched list");
+		}
 	}	
 	
 	//sets node's name to new name

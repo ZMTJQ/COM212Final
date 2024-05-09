@@ -5,8 +5,8 @@
 //A user can perform the following methods on a linked list:
 //length, isEmptyList, searchReturn, searchRemove, insert and printList
 
-
-public class List {
+import java.io.*;
+public class List implements java.io.Serializable{
 	
 	private MovieNode head = null;
 	private int n = 0;
@@ -98,7 +98,7 @@ public class List {
 	//prints the contents of the list in order first to last
 	public void printList(){
 		if (head != null){
-			System.out.println(n);
+			//System.out.println(n);
 			MovieNode temp = head;
 			while (temp!=null) {
 				System.out.println(temp.getName());
@@ -107,7 +107,7 @@ public class List {
 		}
 		
 		else {
-			System.out.println(n);
+			//System.out.println(n);
 		}
 	}
 	

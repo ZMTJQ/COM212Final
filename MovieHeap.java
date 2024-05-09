@@ -1,4 +1,5 @@
-public class MovieHeap{
+import java.io.*;
+public class MovieHeap implements java.io.Serializable{
 	
 	private MovieNode[] h= new MovieNode[255];
 	private int n = 0;
@@ -39,6 +40,9 @@ public class MovieHeap{
 		h[x] = temp;
 	}
 	
+	public int getN(){
+		return n;
+	}
 	//inserts new node at the end, calls adjust to find its proper place
 	public void insert(MovieNode x){
 		if(n<255){
