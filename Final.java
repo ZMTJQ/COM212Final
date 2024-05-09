@@ -809,9 +809,13 @@ public class Final implements java.io.Serializable{
 				
 				MovieNode movie = new MovieNode(IDCounter, inputName, inputRD, inputRT);
 				createID(movie);
+				System.out.println(movieRTDirectory.getN());
 				movieRTDirectory.insert(movie);
-				movieIDDirectory.insert(movie);
-				movieDateDirectory.insert(movie);
+				System.out.println(movieRTDirectory.getN());
+				if(movieRTDirectory.getN()<255){
+					movieIDDirectory.insert(movie);
+					movieDateDirectory.insert(movie);
+				}
 				saveMovieHeap(movieRTDirectory);
 				saveMovieBST(movieDateDirectory);
 				saveMovieHash(movieIDDirectory);
@@ -949,7 +953,15 @@ public class Final implements java.io.Serializable{
         	} 
         	catch (Exception e) {
             	movie = new MovieBST();
-         
+         	
+		    	int n = 10000000;
+		    	int ID = 20000;
+	    		for(int i = 0; i<254; i++){
+				MovieNode temp = new MovieNode(ID+i,"hey", n+i, i%100);
+				movie.insert(temp);
+			}
+		
+		/*
             	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
             	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
             	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
@@ -993,6 +1005,7 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie19);
             	movie.insert(movie20);
             	movie.insert(movie21);
+            	*/
         	}
         return movie;
     	}
@@ -1020,8 +1033,14 @@ public class Final implements java.io.Serializable{
             		file.close();
         	} 
         	catch (Exception e) {
-            	movie = new MovieHeap();
-            	
+		    	movie = new MovieHeap();
+		    	int n = 10000000;
+		    	int ID = 20000;
+	    		for(int i = 0; i<254; i++){
+				MovieNode temp = new MovieNode(ID+i,"hey", n+i, i%100);
+				movie.insert(temp);
+			}
+        	/*
             	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
             	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
             	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
@@ -1065,7 +1084,7 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie19);
             	movie.insert(movie20);
             	movie.insert(movie21);
-            	
+            	*/
         	}
         return movie;
     	}
@@ -1095,6 +1114,13 @@ public class Final implements java.io.Serializable{
         	catch (Exception e) {
             	movie = new MovieHash();
             	
+		    	int n = 10000000;
+		    	int ID = 20000;
+	    		for(int i = 0; i<254; i++){
+				MovieNode temp = new MovieNode(ID+i,"hey", n+i, i%100);
+				movie.insert(temp);
+			}
+            	/*
             	MovieNode movie1 = new MovieNode(10001, "Episode_IV:_A_New_Hope",19770525,96);
             	MovieNode movie2 = new MovieNode(10002, "Star_Wars_V:The Empire_Strikes_Back",19800521,97);
             	MovieNode movie3 = new MovieNode(10003, "The_Fast_and_The_Furious",20010622,74);
@@ -1138,6 +1164,7 @@ public class Final implements java.io.Serializable{
             	movie.insert(movie19);
             	movie.insert(movie20);
             	movie.insert(movie21);
+            	*/
         	}
         return movie;
     	}

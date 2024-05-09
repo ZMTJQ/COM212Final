@@ -40,6 +40,9 @@ public class MovieHeap implements java.io.Serializable{
 		h[x] = temp;
 	}
 	
+	public int getN(){
+		return n;
+	}
 	//inserts new node at the end, calls adjust to find its proper place
 	public void insert(MovieNode x){
 		if(n<255){
